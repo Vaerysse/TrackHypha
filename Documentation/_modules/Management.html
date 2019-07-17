@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Management &mdash; Documentation TrackHypha / SkelHypha 1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TrackHypha / SkelHypha
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table des matières</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1_TrackHypha.html">TrackHypha</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_SkelHypha.html">SkelHypha</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TrackHypha / SkelHypha</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Code du module</a> &raquo;</li>
+        
+      <li>Management</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de Management</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1">#     This module is part of TrackHypha, an application that analyzes the </span>
+<span class="c1">#     filamentous network of a mushroom by following one of its apex. </span>
+<span class="c1">#     Copyright (C)  2019  Salomé Attar, </span>
+<span class="c1">#                          Bouthayna Haltout, </span>
+<span class="c1">#                          Sébastien Maillos, </span>
+<span class="c1">#                          Laura Xénard</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#     it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#     (at your option) any later version.</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1">#     GNU General Public License for more details.</span>
+<span class="c1"># </span>
+<span class="c1">#     You should have received a copy of the GNU General Public License</span>
+<span class="c1">#     along with this program. If not, see https://www.gnu.org/licenses/.</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:Synopsis: </span>
+<span class="sd">    This module comprises a unique class, identically named. </span>
+<span class="sd">    It is the managing module of the application: it links all the other modules together.</span>
+
+<span class="sd">.. moduleauthor:: Sébastien Maillos</span>
+<span class="sd">.. moduleauthor:: Laura Xénard</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">ImageDraw</span>
+
+<span class="kn">import</span> <span class="nn">Mushroom</span> <span class="k">as</span> <span class="nn">msh</span>
+<span class="kn">import</span> <span class="nn">InOut</span>
+<span class="kn">import</span> <span class="nn">AI</span>
+
+
+<div class="viewcode-block" id="Mana"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana">[docs]</a><span class="k">class</span> <span class="nc">Mana</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Class managing the calls to all the functionnalities of the application.</span>
+<span class="sd">        </span>
+<span class="sd">    :param Project project: the project created by the user</span>
+<span class="sd">        </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Laura Xénard</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    
+    <span class="c1">## Project management methods ##</span>
+    
+<div class="viewcode-block" id="Mana.new_project"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.new_project">[docs]</a>    <span class="k">def</span> <span class="nf">new_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Initializes the :class:`Project` attribute of :mod:`Management` from the path obtained by the :mod:`Ui` module </span>
+<span class="sd">        by filling the images lists *skelPics* and *greyPics* and loading those images.</span>
+<span class="sd">        </span>
+<span class="sd">        :param str path: the path to the project environment given by the user</span>
+<span class="sd">        :return: a tuple of a boolean and a string indicating the success or failure of the project creation </span>
+<span class="sd">        :rtype: (bool, str)</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">msh</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="c1"># updates the &#39;project&#39; attribute of &#39;Management&#39;</span>
+        <span class="k">return</span> <span class="n">InOut</span><span class="o">.</span><span class="n">new_environment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">)</span></div>
+                              
+<div class="viewcode-block" id="Mana.load_project"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.load_project">[docs]</a>    <span class="k">def</span> <span class="nf">load_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Initializes the :class:`Project` attribute of :mod:`Management` from the path of a pre-existing project.</span>
+<span class="sd">        </span>
+<span class="sd">        :param str path: the path to the project environment given by the user</span>
+<span class="sd">        :return: a tuple of a boolean and a string indicating the success or failure of the project creation </span>
+<span class="sd">        :rtype: (bool, str)</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">project</span><span class="p">,</span> <span class="n">loadingOK</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="n">InOut</span><span class="o">.</span><span class="n">open_project</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="c1"># we directly gives the path to InOut which opens the save and extracts the project</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">project</span> <span class="c1"># the object &#39;project&#39;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">loadingOK</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+            
+<div class="viewcode-block" id="Mana.save_project"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.save_project">[docs]</a>    <span class="k">def</span> <span class="nf">save_project</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Asks InOut to save the current :class:`Project`.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: a string indicating the success or failure of the saving</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        :raise AttributeError: if no :class:`Project` instance exists</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">InOut</span><span class="o">.</span><span class="n">save_project</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Please create or open a project before trying to save it.&quot;</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+        
+<div class="viewcode-block" id="Mana.export_project"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.export_project">[docs]</a>    <span class="k">def</span> <span class="nf">export_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notes</span><span class="p">,</span> <span class="n">txtOk</span><span class="p">,</span> <span class="n">imgOk</span><span class="p">,</span> <span class="n">imgstepsOk</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Asks InOut to export the data obtained during the analysis of the current :class:`Project`.</span>
+
+<span class="sd">        :param str notes: a string representing the notes written by the user about the current project</span>
+<span class="sd">        :param bool txtOk: a boolean representing if the text data should be exported</span>
+<span class="sd">        :param bool imgOk: a boolean representing if the final img should be exported</span>
+<span class="sd">        :param bool imgstepsOk: a boolean representing if the steps pictures should be exported</span>
+<span class="sd">        :return: a string indicating the success or failure of the export</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">notes</span> <span class="o">=</span> <span class="n">notes</span> <span class="c1"># update of the &#39;notes&#39; attribute of the project</span>
+        <span class="k">return</span> <span class="n">InOut</span><span class="o">.</span><span class="n">export_project</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">,</span> <span class="n">txtOk</span><span class="p">,</span> <span class="n">imgOk</span><span class="p">,</span> <span class="n">imgstepsOk</span><span class="p">)</span>    </div>
+    
+
+    <span class="c1">## Pre-analysis methods ##</span>
+        
+<div class="viewcode-block" id="Mana.previous_img"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.previous_img">[docs]</a>    <span class="k">def</span> <span class="nf">previous_img</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Asks for the display of the previous image in the list. Slot method for the &#39;Previous image&#39; button of the interface.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: 0 if the image index exists, the non existing index otherwise</span>
+<span class="sd">        :rtype: int </span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">index</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">go_to_img</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mana.next_img"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.next_img">[docs]</a>    <span class="k">def</span> <span class="nf">next_img</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Asks for the display of the next image in the list. Slot method for the &#39;Next image&#39; button of the interface.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: 0 if the image index exists, the non existing index otherwise</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">index</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">go_to_img</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Mana.go_to_img"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.go_to_img">[docs]</a>    <span class="k">def</span> <span class="nf">go_to_img</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the :class:`Project` information so that the UI module can display a new image. Slot method for the display of a specific image from its index.</span>
+<span class="sd">        </span>
+<span class="sd">        :param int index: the index of the image to display</span>
+<span class="sd">        :return: 0 if the image index exists, the non existing index otherwise</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :raise IndexError: if no image exists at the specified index</span>
+<span class="sd">     </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+         
+        <span class="c1"># Check if an image exists at the specified index</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WARNING! Index error. No image exists at the index </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>   
+            <span class="k">return</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="c1"># return the inexisting index</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">previousImgDisplayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span> <span class="c1"># update of the lastly displayed image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span> <span class="o">=</span> <span class="n">index</span> <span class="c1"># update of the currently displayed image               </span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+    
+    <span class="k">def</span> <span class="nf">greyImgNotDisplayed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">currentImg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">previousImgDisplayed</span>
+        
+<div class="viewcode-block" id="Mana.check_apex"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.check_apex">[docs]</a>    <span class="k">def</span> <span class="nf">check_apex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordSelection</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Asks the AI module to check if the given :class:`Coordinates` in an image is an apex, and update the :class:`Analysis` accordingly.</span>
+<span class="sd">        </span>
+<span class="sd">        :param coordSelection: the :class:`Coordinates` given by a user click</span>
+<span class="sd">        :return: if the given :class:`Coordinates` are those of an apex: True and the real coordinates of the apex. If not: False otherwise and a placeholder :class:`Coordinates`.</span>
+<span class="sd">        :rtype: (bool, Coordinates)</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Sébastien Maillos        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">skelPics</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span><span class="p">]</span>
+        <span class="n">isApex</span><span class="p">,</span> <span class="n">apexRealCoord</span> <span class="o">=</span> <span class="n">AI</span><span class="o">.</span><span class="n">is_apex</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">coordSelection</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">isApex</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span> <span class="o">=</span> <span class="n">msh</span><span class="o">.</span><span class="n">Analysis</span><span class="p">(</span><span class="n">apexRealCoord</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span><span class="p">)</span> <span class="c1"># creation of an object &#39;Analysis&#39;</span>
+            <span class="c1"># the image from which the apex is selected is imperatively the start image of the analysis</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">isApex</span><span class="p">,</span> <span class="n">apexRealCoord</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">isApex</span><span class="p">,</span> <span class="n">msh</span><span class="o">.</span><span class="n">Coordinates</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span></div>
+    
+<div class="viewcode-block" id="Mana.select_apex"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.select_apex">[docs]</a>    <span class="k">def</span> <span class="nf">select_apex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apexRealCoord</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Updates the :class:`Analysis` with the apex to follow and the start image of the analysis.</span>
+<span class="sd">        </span>
+<span class="sd">        :param Coordinates apexRealCoord: the :class:`Coordinates` given by a user click</span>
+<span class="sd">        :return: a message indicating that the apex and start image have been selected for the analysis</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span> <span class="o">=</span> <span class="n">msh</span><span class="o">.</span><span class="n">Analysis</span><span class="p">(</span><span class="n">apexRealCoord</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span><span class="p">)</span> <span class="c1"># creation of an object &#39;Analysis&#39; isApex</span>
+        <span class="k">return</span> <span class="s2">&quot;The apex and start image for the analysis have been updated.&quot;</span></div>
+    
+<div class="viewcode-block" id="Mana.select_endImg"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.select_endImg">[docs]</a>    <span class="k">def</span> <span class="nf">select_endImg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endImg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the :class:`Analysis` with the end image of the analysis.</span>
+<span class="sd">        </span>
+<span class="sd">        :param int endImg: the index of the last image of the analysis, given by the user</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">endImg</span> <span class="o">=</span> <span class="n">endImg</span> <span class="c1"># update of the last image of the analysis</span>
+        <span class="k">return</span> <span class="s2">&quot;The end image for the analysis has been updated.&quot;</span></div>
+        
+        
+    <span class="c1">## Analysis methods ##</span>
+
+<div class="viewcode-block" id="Mana.run"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Runs an analysis on the list of skeleton images of the project.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: a message indicating the state of the analysis</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">message</span><span class="p">,</span> <span class="n">isDone</span> <span class="o">=</span> <span class="n">AI</span><span class="o">.</span><span class="n">play_analysis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">skelPics</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="p">)</span>        
+        <span class="k">if</span> <span class="n">isDone</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colorize_final_img</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">isDone</span><span class="p">)</span></div>
+                  
+<div class="viewcode-block" id="Mana.colorize_final_img"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.colorize_final_img">[docs]</a>    <span class="k">def</span> <span class="nf">colorize_final_img</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Colorizes in red all the hyphae explored by the analysis. Works by drawing a red circle on every pixels covered during the analysis. </span>
+<span class="sd">        </span>
+<span class="sd">        :param int radius: the radius of the circle to draw</span>
+<span class="sd">        :param str color: the color to use for the drawing</span>
+<span class="sd">            </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Retrieving and copying of the analysis last image</span>
+        <span class="n">imgIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">endImg</span> <span class="c1"># index of the last image of the analysis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">finalImg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">[</span><span class="n">imgIndex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># copying the img so as to preserve the original img</span>
+        
+        <span class="c1"># Drawing a red circle on every pixel</span>
+        <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">finalImg</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">list_pixels</span><span class="p">),</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">list_pixels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">([(</span><span class="n">coord</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">coord</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="n">radius</span><span class="p">),</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">radius</span><span class="p">,</span> <span class="n">coord</span><span class="o">.</span><span class="n">y</span><span class="o">+</span><span class="n">radius</span><span class="p">)],</span> <span class="n">color</span><span class="p">)</span> <span class="c1"># coordinates of the square in which is inscribed the circle</span>
+                
+        <span class="k">del</span> <span class="n">draw</span> <span class="c1"># the drawing is done so no need to keep the draw object (from the official Pillow documentation example for ImageDraw)        </span></div>
+
+
+    <span class="c1">## Post-analysis methods ##</span>
+        
+<div class="viewcode-block" id="Mana.previous_step"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.previous_step">[docs]</a>    <span class="k">def</span> <span class="nf">previous_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Asks for the display of the previous image step in the list. Slot method for the &#39;Previous step&#39; button of the interface.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: 0 if the step index exists, the non existing index otherwise</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">newStep</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">currentStep</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">go_to_step</span><span class="p">(</span><span class="n">newStep</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="Mana.next_step"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.next_step">[docs]</a>    <span class="k">def</span> <span class="nf">next_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Asks for the display of the next step image in the list. Slot method for the &#39;Next step&#39; button of the interface.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: 0 if the step index exists, the non existing index otherwise</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">newStep</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">currentStep</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">go_to_step</span><span class="p">(</span><span class="n">newStep</span><span class="p">)</span></div>
+                
+<div class="viewcode-block" id="Mana.go_to_step"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.go_to_step">[docs]</a>    <span class="k">def</span> <span class="nf">go_to_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iStep</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the :class:`Analysis` information so that the UI module can display a new step image.</span>
+<span class="sd">        Creates the image to display, with red spots to indicate the followex apex.</span>
+<span class="sd">        Slot method for the display of a specific step from its index.</span>
+<span class="sd">      </span>
+<span class="sd">        :param int iStep: the index of the step to display</span>
+<span class="sd">        :param int radius: the radius of the circle to draw</span>
+<span class="sd">        :param str color: the color to use for the drawing</span>
+<span class="sd">        :return: 0 if the step index exists, the non existing index otherwise</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :raise KeyError: if the specified key does not exist</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="n">iStep</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># display of the final image</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">stepImg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">finalImg</span>        
+        
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># display of a step image</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">apexCoord</span><span class="p">,</span> <span class="n">imgIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">iStep</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">apexCoord</span><span class="p">,</span> <span class="n">msh</span><span class="o">.</span><span class="n">Coordinates</span><span class="p">):</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">[</span><span class="n">imgIndex</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">stepImg</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># copying the img so as to preserve the original img</span>
+                    
+                    <span class="c1"># Drawing a circle on the apex</span>
+                    <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">stepImg</span><span class="p">)</span>
+                    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">([(</span><span class="n">apexCoord</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">apexCoord</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="n">radius</span><span class="p">),</span> <span class="p">(</span><span class="n">apexCoord</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">radius</span><span class="p">,</span> <span class="n">apexCoord</span><span class="o">.</span><span class="n">y</span><span class="o">+</span><span class="n">radius</span><span class="p">)],</span> <span class="n">color</span><span class="p">)</span> <span class="c1"># coordinates of the square in which is inscribed the circle</span>
+                    <span class="k">del</span> <span class="n">draw</span> <span class="c1"># the drawing is done so no need to keep the draw object (from the official Pillow documentation example for ImageDraw)                                </span>
+            
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WARNING! Inexisting key </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">iStep</span><span class="p">))</span>
+                <span class="k">return</span><span class="p">(</span><span class="n">iStep</span><span class="p">)</span> <span class="c1"># return the inexisting key</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">previousStepDisplayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">currentStep</span> <span class="c1"># update of the previously displayed step</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">currentStep</span> <span class="o">=</span> <span class="n">iStep</span> <span class="c1"># update of the currently displayed step</span>
+        <span class="k">return</span> <span class="mi">0</span> </div>
+    
+    <span class="k">def</span> <span class="nf">colorImgNotDisplayed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">currentStep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">previousStepDisplayed</span>    
+        
+<div class="viewcode-block" id="Mana.clear"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepares the application for a new analysis.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: a message indicating that the application is ready to run a new analysis</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s2">&quot;Analysis deleted. The application is ready to run a new analysis on the previously loaded images.&quot;</span></div>
+    
+<div class="viewcode-block" id="Mana.close"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Management.Mana.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes the :class:`Project` object to clear up the memory.</span>
+<span class="sd">        </span>
+<span class="sd">        :raise AttributeError: if no :class:`Project` instance exists</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;INFORMATION: there&#39;s nothing to clear.&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Salomé Attar, Bouthayna Haltout, Sébastien Maillos, Laura Xénard
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

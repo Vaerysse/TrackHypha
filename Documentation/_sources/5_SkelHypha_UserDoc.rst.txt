@@ -1,0 +1,64 @@
+*************************
+Documentation utilisateur
+*************************
+
+Installation
+************
+
+Quelle que soit la plateforme (Linux, Windows, Mac...), :ref:`SkelHypha <skelhypha>` ne nécessite aucune installation.
+
+Le code source (lien à venir) est distribué sous licence `GPL v3 <https://www.gnu.org/licenses/gpl-3.0.en.html>`_. Il nécessite les dépendances suivantes :
+
+	* `scikit-image <https://scikit-image.org/>`_ (sous licence BSD);
+	* `tifffile <https://pypi.org/project/tifffile/>`_ (sous licence BSD modifiée);
+	* `NumPy <https://www.numpy.org/>`_ (sous licence BSD).
+
+
+Utilisation
+***********
+
+Cet outil ne comporte pas d'interface et s'exécute en ligne de commande. 
+Sur certaines plateformes, il suffit de double-cliquer sur l'exécutable pour lancer le script.
+
+Linux
+=====
+
+Après avoir ouvert l'invite de commande, se déplacer dans le dossier contenant l'exécutable avec la commande ``cd`` : ::
+
+	monOrdi:~$ cd Documents/ImageProcessing
+	
+Puis lancer l'exécutable de la manière suivante : ::
+	
+	monOrdi:~/Documents/ImageProcessing$ ./SkelHypha
+
+Le script demande le chemin absolu du dossier contenant les images binarisées à squelettiser :
+
+.. image:: _static/terminal.png
+	:align: center
+
+Après avoir saisi le chemin et appuyé sur ``Entrée``, la squelettisation commence et la progression s'affiche :
+
+.. image:: _static/skelProgression.png
+	:align: center
+
+Les images squelettisées ainsi qu'un log sont ensuite enregistrés dans le dossier ``Skeletons`` situé à l'intérieur du dossier contenant les images binarisées de départ.
+
+.. image:: _static/skel.png
+	:align: center
+
+Mac
+===
+
+La procédure est pratiquement identique à celle sous Linux. La seule différence est qu'il faut lancer l'exécutable à l'aide de la commande ``open`` : ::
+	
+	monOrdi:~/Documents/ImageProcessing$ open SkelHypha
+
+
+Windows
+=======
+
+La procédure est pratiquement identique à celle sous Linux. La seule différence est qu'il faut lancer l'exécutable à l'aide de la commande ``start`` : ::
+	
+	C:\Users\Moi\Documents\ImageProcessing> start SkelHypha
+
+

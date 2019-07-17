@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>InOut &mdash; Documentation TrackHypha / SkelHypha 1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TrackHypha / SkelHypha
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table des matières</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1_TrackHypha.html">TrackHypha</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_SkelHypha.html">SkelHypha</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TrackHypha / SkelHypha</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Code du module</a> &raquo;</li>
+        
+      <li>InOut</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de InOut</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1">#=============================================================================</span>
+<span class="c1">#     This module is part of TrackHypha, an application that analyzes the </span>
+<span class="c1">#     filamentous network of a mushroom by following one of its apex. </span>
+<span class="c1">#     Copyright (C)  2019  Salomé Attar, </span>
+<span class="c1">#                          Bouthayna Haltout, </span>
+<span class="c1">#                          Sébastien Maillos, </span>
+<span class="c1">#                          Laura Xénard</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#     it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#     (at your option) any later version.</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1">#     GNU General Public License for more details.</span>
+<span class="c1"># </span>
+<span class="c1">#     You should have received a copy of the GNU General Public License</span>
+<span class="c1">#     along with this program. If not, see https://www.gnu.org/licenses/.</span>
+<span class="c1"># =============================================================================</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:Synopsis: </span>
+<span class="sd">    This module manages the inputs and the outputs of the system and sends the information received to the module :mod:`Management`.</span>
+
+<span class="sd">.. moduleauthor:: Salomé Attar </span>
+<span class="sd">.. moduleauthor:: Laura Xénard</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
+<span class="kn">import</span> <span class="nn">tifffile</span> <span class="k">as</span> <span class="nn">tiff</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">Mushroom</span> <span class="k">as</span> <span class="nn">msh</span>
+
+
+<div class="viewcode-block" id="new_directory"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#InOut.new_directory">[docs]</a><span class="k">def</span> <span class="nf">new_directory</span><span class="p">(</span><span class="n">path</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a new directory thankes to the module :mod:`os`</span>
+<span class="sd">    </span>
+<span class="sd">    :param str path: the path to create the directory</span>
+<span class="sd">    :raise IOError: if the specified directory has not been correctly created</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Salomé Attar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+         <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+        <span class="k">return</span><span class="p">(</span><span class="s2">&quot;An error occurred while creating the directory.&quot;</span><span class="p">)</span></div>
+   
+<div class="viewcode-block" id="load_pictures"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#InOut.load_pictures">[docs]</a><span class="k">def</span> <span class="nf">load_pictures</span><span class="p">(</span><span class="n">project</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Loads the images from the directories &#39;skeletons&#39; and &#39;regMosaic&#39; given by the project path attribute.</span>
+<span class="sd">    </span>
+<span class="sd">    :param Project project: the project giving the path to the images to load</span>
+<span class="sd">    :return: a tuple of a boolean and a string indicating the state of the creation of the project environment</span>
+<span class="sd">    :rtype: (bool, str)</span>
+<span class="sd">    :raise FileNotFoundError: if the skeleton or greyscale images directory has not been found</span>
+<span class="sd">    :raise NotADirectoryError: if the path specified is not the path of a directory</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Laura Xénard</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Filling of &#39;skelPics&#39; with the skelettonized pictures to display</span>
+    <span class="n">skel_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/skeletons&#39;</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>    
+        <span class="k">with</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">skel_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">dirIt</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">dirIt</span><span class="p">:</span>
+                <span class="c1"># If the item is an image file</span>
+                <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">is_img</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="c1"># loading of the image (by pillow)</span>
+                    <span class="n">imgName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="c1"># name of the image</span>
+                    <span class="n">project</span><span class="o">.</span><span class="n">skelPics</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">img</span><span class="p">,</span> <span class="n">imgName</span><span class="p">))</span> <span class="c1"># add in the list                         </span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;ERROR when loading skeletons: &quot;</span>
+                     <span class="s2">&quot;directory not found.&quot;</span><span class="p">)</span> 
+    <span class="k">except</span> <span class="ne">NotADirectoryError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;ERROR when loading skeletons: &quot;</span>
+                <span class="s2">&quot;the specified path does not match a directory.&quot;</span><span class="p">)</span>    
+    
+    <span class="c1"># Filling of &#39;grayPics&#39; with the greyscale images to display</span>
+    <span class="n">grey_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/regMosaic&#39;</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>    
+        <span class="k">with</span> <span class="n">os</span><span class="o">.</span><span class="n">scandir</span><span class="p">(</span><span class="n">grey_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">dirIt</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">dirIt</span><span class="p">:</span>
+                <span class="c1"># If the item is an image file</span>
+                <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">is_img</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="c1"># loading of the image (by pillow)</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGBA&#39;</span><span class="p">)</span> 
+                    <span class="n">imgName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="c1"># name of the iamge</span>
+                    <span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">img</span><span class="p">,</span> <span class="n">imgName</span><span class="p">))</span> <span class="c1"># add in the list                          </span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;ERROR when loading grayscale images: &quot;</span>
+                     <span class="s2">&quot;directory not found.&quot;</span><span class="p">)</span> 
+    <span class="k">except</span> <span class="ne">NotADirectoryError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;ERROR when loading grayscale images: &quot;</span>
+                <span class="s2">&quot;the specified path does not match a directory.&quot;</span><span class="p">)</span>
+ 
+    <span class="c1"># Sorting lists to ensure that the images are in chronological order</span>
+    <span class="n">project</span><span class="o">.</span><span class="n">skelPics</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    
+    <span class="c1"># Check of the length of the lists which gave to be the same</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">skelPics</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;An error occured during the loading of the pictures:&quot;</span>
+                <span class="s2">&quot;the number of skeletonized images and grayscale images are not the same&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Images successfully loaded.&quot;</span><span class="p">)</span></div>
+            
+<div class="viewcode-block" id="new_environment"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#InOut.new_environment">[docs]</a><span class="k">def</span> <span class="nf">new_environment</span><span class="p">(</span><span class="n">project</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a new project environment:</span>
+<span class="sd">        </span>
+<span class="sd">        * load images from directories with absolute path &#39;path+skeletons&#39; and &#39;path+regMosaic&#39; thanks to the function :func:`load_pictures`;</span>
+<span class="sd">        * if it doesn&#39;t exist, create a new directory &#39;save&#39; in the path of the project; </span>
+<span class="sd">        * if it doesn&#39;t exist, create a new directory &#39;export&#39; in the path of the project.</span>
+<span class="sd">     </span>
+<span class="sd">    :param Project project: the :class:`Project` whose environment needs to be created</span>
+<span class="sd">    :return: a tuple of a boolean and a string indicating the state of the creation of the project environment</span>
+<span class="sd">    :rtype: (bool, str)</span>
+<span class="sd">        </span>
+<span class="sd">    .. codeauthor:: Salomé Attar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># loading of the pictures</span>
+    <span class="n">loadingOK</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="n">load_pictures</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">loadingOK</span><span class="p">:</span>   
+        <span class="c1"># Directories to create</span>
+        <span class="n">save_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/save&#39;</span><span class="p">))</span>
+        <span class="n">export_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/export&#39;</span><span class="p">))</span>
+          
+        <span class="c1"># Creating of the directory &#39;save&#39; and &#39;export&#39; in the &#39;path&#39;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">export_path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;The environment already exists.&quot;</span><span class="p">)</span>
+       
+        <span class="n">new_directory</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span> 
+        <span class="n">new_directory</span><span class="p">(</span><span class="n">export_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;The new environment was successfully created.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
+           
+<div class="viewcode-block" id="open_project"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#InOut.open_project">[docs]</a><span class="k">def</span> <span class="nf">open_project</span><span class="p">(</span><span class="n">path_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Opens an already saved project.</span>
+<span class="sd">   </span>
+<span class="sd">    :param str path_file: the path to the project save</span>
+<span class="sd">    :return: the :class:`Project` of the module :mod:`Mushroom` extracted from the save and a boolean and a string indicating the state of the creation of the project</span>
+<span class="sd">    :rtype: (Project, bool, str)</span>
+<span class="sd">    :raise FileNotFoundError: if no file can be found at the specified path</span>
+<span class="sd">    :raise UnpicklingError: if the unpickling fails</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Salomé Attar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+       <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_file</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+           
+           <span class="k">try</span><span class="p">:</span>
+               <span class="n">my_depickler</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">Unpickler</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="c1">#reading of the file</span>
+               <span class="n">project</span> <span class="o">=</span> <span class="n">my_depickler</span><span class="o">.</span><span class="n">load</span><span class="p">()</span> <span class="c1">#recording in the object</span>
+               <span class="n">loadingOK</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="n">load_pictures</span><span class="p">(</span><span class="n">project</span><span class="p">)</span> <span class="c1"># loading of the images (squelettons et greyscale)</span>
+               <span class="k">if</span> <span class="n">loadingOK</span><span class="p">:</span>
+                   <span class="k">return</span> <span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Project loaded.&quot;</span><span class="p">)</span>
+               <span class="k">else</span><span class="p">:</span>
+                   <span class="k">return</span> <span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+           <span class="k">except</span> <span class="n">pickle</span><span class="o">.</span><span class="n">UnpicklingError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Unpickling failed.&quot;</span><span class="p">)</span>
+        
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;No file has been found at the specified path.&quot;</span><span class="p">)</span></div>
+               
+<div class="viewcode-block" id="save_project"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#InOut.save_project">[docs]</a><span class="k">def</span> <span class="nf">save_project</span><span class="p">(</span><span class="n">project</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Saves the project in a file named by the date thanks to the module :mod:`datetime` without its images.</span>
+<span class="sd">    </span>
+<span class="sd">    :param Project project: the :class:`Project` to save</span>
+<span class="sd">    :return: a message indicating if the saving worked</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    :raise FileNotFoundError: if the save directory has not been found</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Salomé Attar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;Project saved.&quot;</span>
+    <span class="c1"># copy of the pictures before delete them for the saving</span>
+    <span class="n">skelPicsCopy</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">skelPics</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
+    <span class="n">greyPicsCopy</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="c1"># deleting of the pictures for the saving</span>
+    <span class="n">project</span><span class="o">.</span><span class="n">skelPics</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="n">project</span><span class="o">.</span><span class="n">greyPics</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># put the name of the file in a format yyyy-mm-dd-hh-mm-ss (year,month,day,hour,minute,second)</span>
+    <span class="n">myDate</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+    <span class="n">mytime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">projetid</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">myDate</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mytime</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mytime</span><span class="o">.</span><span class="n">minute</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mytime</span><span class="o">.</span><span class="n">second</span><span class="p">))</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/save/ProjectNumber&#39;</span><span class="o">+</span> <span class="n">projetid</span><span class="p">)),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">my_pickler</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">Pickler</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">my_pickler</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;An error occurred during the save. Directory not found.&quot;</span>
+
+    <span class="n">project</span><span class="o">.</span><span class="n">skelPics</span> <span class="o">=</span> <span class="n">skelPicsCopy</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">project</span><span class="o">.</span><span class="n">greyPics</span> <span class="o">=</span> <span class="n">greyPicsCopy</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">result</span></div>
+                
+<div class="viewcode-block" id="export_project"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#InOut.export_project">[docs]</a><span class="k">def</span> <span class="nf">export_project</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">txtOk</span><span class="p">,</span> <span class="n">imgOk</span><span class="p">,</span> <span class="n">imgstepsOk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exports a project in a txt format and ask the user to enter comments if he needs to.</span>
+<span class="sd">    The :class:`Project` is exported in a file named by the current date yyyy-mm-dd-hh-mm-ss.</span>
+<span class="sd">   </span>
+<span class="sd">    :param Project project: the :class:`Project` to export</span>
+<span class="sd">    :param bool txtOk: a boolean indicating if the text data of the analysis should be exported</span>
+<span class="sd">    :param bool imgOk: a boolean indicating if the final image of the analysis should be exported</span>
+<span class="sd">    :param bool imgstepsOk: a boolean indicating if the list of the steps images should be exported</span>
+<span class="sd">    :return: a message indicating if the project has been correctly exported</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    :raise FileNotFoundError: if the save directory has not been found</span>
+
+<span class="sd">    .. codeauthor:: Salomé Attar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;Analysis exported.&quot;</span> 
+    
+    <span class="c1"># creation of the file name</span>
+    <span class="n">myDate</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+    <span class="n">mytime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">projetid</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">myDate</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mytime</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mytime</span><span class="o">.</span><span class="n">minute</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mytime</span><span class="o">.</span><span class="n">second</span><span class="p">))</span>
+    
+    <span class="c1"># creation of the paths</span>
+    <span class="n">export_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/export/ProjectNumber&#39;</span> <span class="o">+</span> <span class="n">projetid</span> <span class="o">+</span> <span class="s1">&#39;.txt&#39;</span><span class="p">))</span>
+    <span class="n">export_img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/export/ImageFinal&#39;</span> <span class="o">+</span> <span class="n">projetid</span> <span class="o">+</span> <span class="s1">&#39;.tif&#39;</span><span class="p">))</span>
+    <span class="n">export_steps_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/export/ImageSteps&#39;</span> <span class="o">+</span> <span class="n">projetid</span> <span class="o">+</span> <span class="s1">&#39;.tif&#39;</span><span class="p">))</span>
+    
+    <span class="c1"># if the analysis already exists</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">export_file_path</span><span class="p">)):</span> 
+            <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;This analysis have already been exported.&quot;</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># if its not the case and the user wants to export the text of the analysis</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">txtOk</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>    
+                <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="n">export_file_path</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Projet n. &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;* * Parametres de l&#39;analyse * *&quot;</span><span class="p">)</span> <span class="c1"># parameters of the analysis : image of the start, image of the end and coordiantes of the apex selectionnated</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Image de debut : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">[</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">startImg</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; (n. &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">startImg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Image de fin : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">[</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">endImg</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; (n. &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">endImg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Coordonnees de l&#39;apex selectionne : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">startApex</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="n">project</span><span class="o">.</span><span class="n">notes</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Commentaires : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">notes</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;* * Tableau des hyphes * *&quot;</span><span class="p">)</span> <span class="c1"># array of the hyphaes</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">while</span> <span class="n">i</span><span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">hyphae</span><span class="p">):</span> <span class="c1"># for each hypha, its number and the list of the segments which composed it </span>
+                        
+                        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;N. hyphe |  Taille  | Segments qui la composent</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">hyphae</span><span class="p">:</span>
+                            <span class="n">value</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">hyphae</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                            <span class="n">hypha_line</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:&gt;8}</span><span class="s2"> |</span><span class="si">{:&gt;9}</span><span class="s2"> | &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="k">for</span> <span class="n">seg</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                                <span class="n">hypha_line</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">seg</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span>
+                            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">hypha_line</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                                  
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;* * Tableau des segments * *&quot;</span><span class="p">)</span> <span class="c1"># array of the segments</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">segments</span><span class="p">):</span>
+                        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;N. segment |  Coordonnees debut  |   Coordonnees fin   |  Taille  | Evolution du segment =&gt; imgIndex: [apexCoord, taille]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                            <span class="n">coord</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">coord</span>
+                            <span class="n">size</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
+                            <span class="n">evo</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">evolution</span>                            
+                            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:&gt;10}</span><span class="s2"> |</span><span class="si">{:&gt;20}</span><span class="s2"> |</span><span class="si">{:&gt;20}</span><span class="s2"> | </span><span class="si">{:&gt;8}</span><span class="s2"> | </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">size</span><span class="p">,</span> <span class="n">evo</span><span class="p">))</span>
+                            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                            
+                    <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            
+            <span class="k">if</span> <span class="p">(</span><span class="n">imgOk</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+                <span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">finalImg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">export_img_path</span><span class="p">)</span> <span class="c1"># save of the analysis image</span>
+            
+            <span class="k">if</span> <span class="p">(</span><span class="n">imgstepsOk</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">tiff</span><span class="o">.</span><span class="n">TiffWriter</span><span class="p">(</span><span class="n">export_steps_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
+                    <span class="n">export_steps</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;An error occurred during the export.&quot;</span>
+                
+    <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="is_img"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#InOut.is_img">[docs]</a><span class="k">def</span> <span class="nf">is_img</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Checks that the file with the specified path &#39;path&#39; is an image whose format is supported by the &#39;Image&#39; class of PIL:</span>
+<span class="sd">        </span>
+<span class="sd">        * BMP 	Windows Bitmap</span>
+<span class="sd">        * GIF 	Graphic Interchange Format (optional</span>
+<span class="sd">        * JPG 	Joint Photographic Experts Group</span>
+<span class="sd">        * JPEG 	Joint Photographic Experts Group</span>
+<span class="sd">        * PNG 	Portable Network Graphics</span>
+<span class="sd">        * PPM 	Portable Pixmap</span>
+<span class="sd">        * TIFF 	Tagged Image File Format</span>
+<span class="sd">        * XBM 	X11 Bitmap</span>
+<span class="sd">    </span>
+<span class="sd">    :param str path: the path of the file to check</span>
+<span class="sd">    :return: True if the file that has been checked is in a supported format, False otherwise</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Laura Xénard</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">formats</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.bmp&#39;</span><span class="p">,</span> <span class="s1">&#39;.gif&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpeg&#39;</span><span class="p">,</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="s1">&#39;.ppm&#39;</span><span class="p">,</span> <span class="s1">&#39;.tif&#39;</span><span class="p">,</span> <span class="s1">&#39;.tiff&#39;</span><span class="p">,</span> <span class="s1">&#39;.xbm&#39;</span><span class="p">]</span>
+    <span class="n">fileFormat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># extension of the file</span>
+    <span class="k">if</span> <span class="n">fileFormat</span> <span class="ow">in</span> <span class="n">formats</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+    
+<div class="viewcode-block" id="export_steps"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#InOut.export_steps">[docs]</a><span class="k">def</span> <span class="nf">export_steps</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">stack</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method that fills the colorPics attribute of :class:`Analysis` with the steps images in chronological order where the currently followed apex is represented by a red circle.</span>
+<span class="sd">        </span>
+<span class="sd">        :param int radius: radius of the circle to draw</span>
+<span class="sd">        :param str color: color to use for the drawing</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># For each step in chronological order</span>
+        <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            
+            <span class="c1"># Retrieving and copying of the image</span>
+            <span class="n">apexCoord</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># &#39;Coordinates&#39; of the followed apex for the step</span>
+            
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">apexCoord</span><span class="p">,</span> <span class="n">msh</span><span class="o">.</span><span class="n">Coordinates</span><span class="p">):</span>
+                <span class="n">indexImg</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span> <span class="c1"># index of the greyscale image for the step</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">[</span><span class="n">indexImg</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">imgColor</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># copying the img so as to preserve the original img</span>
+            
+                <span class="c1"># Drawing a circle on the apex</span>
+                <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">imgColor</span><span class="p">)</span>
+                <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">([(</span><span class="n">apexCoord</span><span class="o">.</span><span class="n">x</span><span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">apexCoord</span><span class="o">.</span><span class="n">y</span><span class="o">-</span><span class="n">radius</span><span class="p">),</span> <span class="p">(</span><span class="n">apexCoord</span><span class="o">.</span><span class="n">x</span><span class="o">+</span><span class="n">radius</span><span class="p">,</span> <span class="n">apexCoord</span><span class="o">.</span><span class="n">y</span><span class="o">+</span><span class="n">radius</span><span class="p">)],</span> <span class="n">color</span><span class="p">)</span> <span class="c1"># coordinates of the square in which is inscribed the circle</span>
+                <span class="k">del</span> <span class="n">draw</span> <span class="c1"># the drawing is done so no need to keep the draw object (from the official Pillow documentation example for ImageDraw)</span>
+                
+                <span class="n">npimg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">imgColor</span><span class="p">)</span>
+                <span class="n">stack</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">npimg</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># compress : 0 = not compressed, 9 = very compressed</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Salomé Attar, Bouthayna Haltout, Sébastien Maillos, Laura Xénard
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

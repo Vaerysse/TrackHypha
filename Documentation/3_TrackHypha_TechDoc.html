@@ -1,0 +1,1614 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documentation technique &mdash; Documentation TrackHypha / SkelHypha 1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="SkelHypha" href="4_SkelHypha.html" />
+    <link rel="prev" title="Documentation utilisateur" href="2_TrackHypha_UserDoc.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> TrackHypha / SkelHypha
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table des matières</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="1_TrackHypha.html">TrackHypha</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2_TrackHypha_UserDoc.html">Documentation utilisateur</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Documentation technique</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-Mushroom">Module Mushroom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#package-ui">Package UI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-MainWindow">Module MainWindow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-Ui">Module Ui</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-Notes">Module Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Management">Module Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-InOut">Module InOut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-AI">Module AI</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="4_SkelHypha.html">SkelHypha</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TrackHypha / SkelHypha</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="1_TrackHypha.html">TrackHypha</a> &raquo;</li>
+        
+      <li>Documentation technique</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/3_TrackHypha_TechDoc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="documentation-technique">
+<h1>Documentation technique<a class="headerlink" href="#documentation-technique" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="module-Mushroom">
+<span id="module-mushroom"></span><h2>Module Mushroom<a class="headerlink" href="#module-Mushroom" title="Lien permanent vers ce titre">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Synopsis:</th><td class="field-body"><p class="first">This module represents and manages the structure of the mycelium extracted from a data set throught these 5 classes:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>Coordinates</li>
+<li>HyphaSegment</li>
+<li>Analysis</li>
+<li>Project</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="Mushroom.Analysis">
+<em class="property">class </em><code class="descclassname">Mushroom.</code><code class="descname">Analysis</code><span class="sig-paren">(</span><em>startApex</em>, <em>startImg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mushroom.html#Analysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Mushroom.Analysis" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Class representing an analysis run on an image dataset in fonction of the user’s parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>int</em>) – the id of the analysis</li>
+<li><strong>startApex</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – the <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code></a> of the apex chosen as the starting point of the analysis</li>
+<li><strong>startImg</strong> (<em>int</em>) – the index of the start image of the analysis</li>
+<li><strong>endImg</strong> (<em>int</em>) – the index of the end image of the analysis</li>
+<li><strong>steps</strong> (<em>dict{int :</em><em> [</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>, </em><em>int</em><em>]</em><em>}</em>) – a dictionary of the analysis steps, linking the step index with the <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code></a> of the followed apex and the index of the corresponding image</li>
+<li><strong>finalImg</strong> (<em>Image</em>) – an image showing the hyphae that have been explored by the analysis</li>
+<li><strong>stepImg</strong> (<em>Image</em>) – an image showing the position of the explored apex for the current step</li>
+<li><strong>currentStep</strong> (<em>int</em>) – the step currently being displayed</li>
+<li><strong>previousStepDisplayed</strong> (<em>int</em>) – the step previously being displayed</li>
+<li><strong>segments</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.HyphaSegment" title="Mushroom.HyphaSegment"><em>HyphaSegment</em></a><em>]</em>) – a list of all the <a class="reference internal" href="#Mushroom.HyphaSegment" title="Mushroom.HyphaSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">HyphaSegment</span></code></a> created by the analysis</li>
+<li><strong>hyphae</strong> (<em>dict{int : list</em><em>[</em><em>int</em><em>]</em><em>}</em>) – a hyphae dictionary linkink each hypha with the id of its segments</li>
+<li><strong>list_pixels</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – a list of <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code></a> of the hyphae pixels</li>
+<li><strong>processingTime</strong> (<em>int</em>) – the processing time of the analysis</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="Mushroom.Coordinates">
+<em class="property">class </em><code class="descclassname">Mushroom.</code><code class="descname">Coordinates</code><span class="sig-paren">(</span><em>coordX</em>, <em>coordY</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mushroom.html#Coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Mushroom.Coordinates" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Class representing the Cartesian coordinates of a point in the plane.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>coordX</strong> (<em>int</em>) – the point abscissa</li>
+<li><strong>coordY</strong> (<em>int</em>) – the point ordinate</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="Mushroom.HyphaSegment">
+<em class="property">class </em><code class="descclassname">Mushroom.</code><code class="descname">HyphaSegment</code><span class="sig-paren">(</span><em>previousID</em>, <em>start</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mushroom.html#HyphaSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Mushroom.HyphaSegment" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Class representing a hypha segment which is the section of the hypha comprised between two nodes or between a node and an apex.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>int</em>) – the id of the segment</li>
+<li><strong>previous</strong> (<em>int</em>) – the id of the previous segment</li>
+<li><strong>deadEnd</strong> (<em>bool</em>) – True if the segment is the last one of the hypha, False otherwise</li>
+<li><strong>coord</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – the start and end <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code></a> of the segment</li>
+<li><strong>evolution</strong> (<em>dict{int :</em><em> [</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>, </em><em>int</em><em>]</em><em>}</em>) – a dictionary of the evolution steps of the segment, linking the relevant image with the segment apex <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code></a> and its length</li>
+<li><strong>size</strong> (<em>int</em>) – size of the hypha segment in pixel</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="Mushroom.Project">
+<em class="property">class </em><code class="descclassname">Mushroom.</code><code class="descname">Project</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mushroom.html#Project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Mushroom.Project" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Class holding the project data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>int</em>) – the id of the project</li>
+<li><strong>path</strong> (<em>str</em>) – the path to the project environment (directory)</li>
+<li><strong>skelPics</strong> (<em>list</em><em>[</em><em>(</em><em>Image</em><em>, </em><em>str</em><em>)</em><em>]</em>) – a sorted list of tuples (img, img name) of skeleton images to analyze</li>
+<li><strong>greyPics</strong> (<em>list</em><em>[</em><em>(</em><em>Image</em><em>, </em><em>str</em><em>)</em><em>]</em>) – a sorted list of tuples (img, img name) of greyscale images to display in the UI</li>
+<li><strong>currentImg</strong> (<em>int</em>) – the index of the image currently being displayed</li>
+<li><strong>previousImgDisplayed</strong> (<em>int</em>) – the index of the image previously being displayed</li>
+<li><strong>notes</strong> (<em>str</em>) – notes on the analysis (the notes will be exported)</li>
+<li><strong>analysis</strong> (<a class="reference internal" href="#Mushroom.Analysis" title="Mushroom.Analysis"><em>Analysis</em></a>) – the <a class="reference internal" href="#Mushroom.Analysis" title="Mushroom.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Analysis</span></code></a> object holding the analysis data</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="Mushroom.Project.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Mushroom.html#Project.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Mushroom.Project.clear" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Reinitiating the project so that a new analysis can be run on the same set of images. 
+The notes written at the previous analysis are being kept but can be changed during the export.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Lève:</th><td class="field-body"><strong>AttributeError</strong> – if there is no attribute <a class="reference internal" href="#Mushroom.Analysis" title="Mushroom.Analysis"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Analysis</span></code></a> for the current <a class="reference internal" href="#Mushroom.Project" title="Mushroom.Project"><code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="package-ui">
+<h2>Package UI<a class="headerlink" href="#package-ui" title="Lien permanent vers ce titre">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Synopsis:</th><td class="field-body"><p class="first">This package contains the three modules used to create and display the user interface:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>MainWindow</li>
+<li>Ui</li>
+<li>Notes</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="module-MainWindow">
+<span id="module-mainwindow"></span><h3>Module MainWindow<a class="headerlink" href="#module-MainWindow" title="Lien permanent vers ce titre">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Synopsis:</th><td class="field-body"><p class="first">This module represents and manages the structure of the Main window seen by the user. 
+This module contains three classes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>MouseTracker</li>
+<li>MainWindow</li>
+<li>TaskBar</li>
+</ul>
+</div></blockquote>
+<p class="last">It is the User Interface module of the application: 
+it links itself to the <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a> module that is linked to all the other modules.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="MainWindow.MainWindow">
+<em class="property">class </em><code class="descclassname">MainWindow.</code><code class="descname">MainWindow</code><a class="reference internal" href="_modules/MainWindow.html#MainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<p>Main class displaying the MainWindow of the project.</p>
+<dl class="method">
+<dt id="MainWindow.MainWindow.adjustScrollBar">
+<code class="descname">adjustScrollBar</code><span class="sig-paren">(</span><em>scrollBar</em>, <em>factor</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.adjustScrollBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.adjustScrollBar" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Adjusts the scroll bar.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scrollBar</strong> (<em>PyQt5.QtWidgets.QScrollBar</em>) – the scrollbar to adjust</li>
+<li><strong>factor</strong> (<em>float</em>) – the zoom factor</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.closeEvent">
+<code class="descname">closeEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.closeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.closeEvent" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Dialog for closing the app, with options on how to proceed - Cancel, Close.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>event</strong> (<em>PyQt5.QtGui.QCloseEvent</em>) – the detected event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.computeFitToWindowScaleFactor">
+<code class="descname">computeFitToWindowScaleFactor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.computeFitToWindowScaleFactor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.computeFitToWindowScaleFactor" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Computes the scale factor needed to fit an image to the window.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.confirm">
+<code class="descname">confirm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.confirm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.confirm" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Allows the user to confirm the parameters selected and to start the analysis.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.displayImgGrey">
+<code class="descname">displayImgGrey</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.displayImgGrey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.displayImgGrey" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Displays the grey Images before an analysis, given by the module <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.displayImgRed">
+<code class="descname">displayImgRed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.displayImgRed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.displayImgRed" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Displays the analyzed images (colorized) after the analysis, given by the <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a> module.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.export">
+<code class="descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.export" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Asks <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a> to export the data obtained during the analysis of the current <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Lève:</th><td class="field-body"><strong>AttributeError</strong> – if no <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> attribute has been created</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.fitToWindow">
+<code class="descname">fitToWindow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.fitToWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.fitToWindow" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Scales the image to fit the window.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.new">
+<code class="descname">new</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.new" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Initializes path as a path directory and sends it to the <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a> module that then gets the set of data in the directory. 
+It then displays the GreyImages returned by the <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a> module. And sets the statusBar and the total number of steps and images of the project.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.nextAnalysisImg">
+<code class="descname">nextAnalysisImg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.nextAnalysisImg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.nextAnalysisImg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Allows the user to go to the next analyzed image.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.nextImg">
+<code class="descname">nextImg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.nextImg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.nextImg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Allows the user to go to the next non-analyzed image.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.open">
+<code class="descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.open" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Initializes the fileName as the file name of the path of a pre-existing project, that the user wants to open. It then sends it to <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a> module.
+After that, it displays the redImages, sets the satusBar and the total number of steps and images of the project.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.play">
+<code class="descname">play</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.play"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.play" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Allows the user to start initializing the parameters for the analysis.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.previousAnalysisImg">
+<code class="descname">previousAnalysisImg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.previousAnalysisImg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.previousAnalysisImg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Allows the user to go to the previous analyzed image.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.previousImg">
+<code class="descname">previousImg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.previousImg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.previousImg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Allows the user to go to the previous non-analyzed image.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.pushOkImg">
+<code class="descname">pushOkImg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.pushOkImg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.pushOkImg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Allows the user to go to the non-analyzed image of their choice.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.pushOkStep">
+<code class="descname">pushOkStep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.pushOkStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.pushOkStep" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Allows the user to go to the analyzed image of their choice.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.save">
+<code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.save" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Asks <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a> to save the current <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.scaleImage">
+<code class="descname">scaleImage</code><span class="sig-paren">(</span><em>factor</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.scaleImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.scaleImage" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Scales the image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>factor</strong> (<em>float</em>) – the zoom factor</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.scaleToFit">
+<code class="descname">scaleToFit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.scaleToFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.scaleToFit" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Scales the image to fit the window.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.trueSize">
+<code class="descname">trueSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.trueSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.trueSize" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Re-scales the image to its true size.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.zoomIn">
+<code class="descname">zoomIn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.zoomIn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.zoomIn" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Zooms in the image of 15%.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MainWindow.zoomOut">
+<code class="descname">zoomOut</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MainWindow.zoomOut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MainWindow.zoomOut" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Zooms out the image of 15%.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="MainWindow.MouseTracker">
+<em class="property">class </em><code class="descclassname">MainWindow.</code><code class="descname">MouseTracker</code><a class="reference internal" href="_modules/MainWindow.html#MouseTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MouseTracker" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QLabel</span></code></p>
+<p>Class adding a mouse position tracker to a QLabel.</p>
+<dl class="method">
+<dt id="MainWindow.MouseTracker.mouseMoveEvent">
+<code class="descname">mouseMoveEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MouseTracker.mouseMoveEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MouseTracker.mouseMoveEvent" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Event method that tracks the mouse position in the QLabel and displays it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>event</strong> (<em>PyQt5.QtGui.QMouseEvent</em>) – the detected event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="MainWindow.MouseTracker.mousePressEvent">
+<code class="descname">mousePressEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#MouseTracker.mousePressEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.MouseTracker.mousePressEvent" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Event method that handle the mouse pressing event.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>event</strong> (<em>PyQt5.QtGui.QMouseEvent</em>) – the detected event</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="MainWindow.TaskBar">
+<em class="property">class </em><code class="descclassname">MainWindow.</code><code class="descname">TaskBar</code><a class="reference internal" href="_modules/MainWindow.html#TaskBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.TaskBar" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtCore.QThread</span></code></p>
+<p>Thread class allowing the pyqt signal between the progress bar and the end of the analysis.</p>
+<dl class="method">
+<dt id="MainWindow.TaskBar.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/MainWindow.html#TaskBar.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#MainWindow.TaskBar.run" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Emits a signal as soon as it’s called.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Ui">
+<span id="module-ui"></span><h3>Module Ui<a class="headerlink" href="#module-Ui" title="Lien permanent vers ce titre">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Synopsis:</th><td class="field-body"><p class="first">This module defines the mainwindow, it creates the main visuals of the mainwindow. It has only one class:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>Ui_MainWindow</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="Ui.Ui_MainWindow">
+<em class="property">class </em><code class="descclassname">Ui.</code><code class="descname">Ui_MainWindow</code><a class="reference internal" href="_modules/Ui.html#Ui_MainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Ui.Ui_MainWindow" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Main class initializing the MainWindow of the project.</p>
+<dl class="method">
+<dt id="Ui.Ui_MainWindow.retranslateUi">
+<code class="descname">retranslateUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Ui.html#Ui_MainWindow.retranslateUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Ui.Ui_MainWindow.retranslateUi" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Function initializing the names of the menu bar.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>MainWindow</strong> (<a class="reference internal" href="#MainWindow.MainWindow" title="MainWindow.MainWindow"><em>MainWindow</em></a>) – the main window in which to create the buttons</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Ui.Ui_MainWindow.setupUi">
+<code class="descname">setupUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Ui.html#Ui_MainWindow.setupUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Ui.Ui_MainWindow.setupUi" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Class constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>MainWindow</strong> (<a class="reference internal" href="#MainWindow.MainWindow" title="MainWindow.MainWindow"><em>MainWindow</em></a>) – the main window in which to create the buttons</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Notes">
+<span id="module-notes"></span><h3>Module Notes<a class="headerlink" href="#module-Notes" title="Lien permanent vers ce titre">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Synopsis:</th><td class="field-body"><p class="first">This module defines the export window, it creates the main visuals of the export window. It has only one class:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li>Ui_Dialog</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="Notes.Ui_Dialog">
+<em class="property">class </em><code class="descclassname">Notes.</code><code class="descname">Ui_Dialog</code><a class="reference internal" href="_modules/Notes.html#Ui_Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Notes.Ui_Dialog" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Main class initializing the export window of the project.</p>
+<dl class="method">
+<dt id="Notes.Ui_Dialog.retranslateUi">
+<code class="descname">retranslateUi</code><span class="sig-paren">(</span><em>Dialog</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Notes.html#Ui_Dialog.retranslateUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Notes.Ui_Dialog.retranslateUi" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Function initializing the names of the check boxes and labels.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>Dialog</strong> (<em>PyQt5.QtWidgets.QDialog</em>) – the dialog to retranslate</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Notes.Ui_Dialog.setupUi">
+<code class="descname">setupUi</code><span class="sig-paren">(</span><em>Dialog</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Notes.html#Ui_Dialog.setupUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Notes.Ui_Dialog.setupUi" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Class constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>Dialog</strong> (<em>PyQt5.QtWidgets.QDialog</em>) – the dialog to setup</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-Management">
+<span id="module-management"></span><h2>Module Management<a class="headerlink" href="#module-Management" title="Lien permanent vers ce titre">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Synopsis:</th><td class="field-body">This module comprises a unique class, identically named. 
+It is the managing module of the application: it links all the other modules together.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="Management.Mana">
+<em class="property">class </em><code class="descclassname">Management.</code><code class="descname">Mana</code><a class="reference internal" href="_modules/Management.html#Mana"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Class managing the calls to all the functionnalities of the application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>project</strong> (<a class="reference internal" href="#Mushroom.Project" title="Mushroom.Project"><em>Project</em></a>) – the project created by the user</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="Management.Mana.check_apex">
+<code class="descname">check_apex</code><span class="sig-paren">(</span><em>coordSelection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.check_apex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.check_apex" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Asks the AI module to check if the given <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> in an image is an apex, and update the <code class="xref py py-class docutils literal notranslate"><span class="pre">Analysis</span></code> accordingly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>coordSelection</strong> – the <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> given by a user click</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">if the given <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> are those of an apex: True and the real coordinates of the apex. If not: False otherwise and a placeholder <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">(bool, <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates">Coordinates</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.clear" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Prepares the application for a new analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Renvoie:</th><td class="field-body">a message indicating that the application is ready to run a new analysis</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type renvoyé:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.close" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Deletes the <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> object to clear up the memory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Lève:</th><td class="field-body"><strong>AttributeError</strong> – if no <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> instance exists</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.colorize_final_img">
+<code class="descname">colorize_final_img</code><span class="sig-paren">(</span><em>radius=5</em>, <em>color='red'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.colorize_final_img"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.colorize_final_img" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Colorizes in red all the hyphae explored by the analysis. Works by drawing a red circle on every pixels covered during the analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>radius</strong> (<em>int</em>) – the radius of the circle to draw</li>
+<li><strong>color</strong> (<em>str</em>) – the color to use for the drawing</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.export_project">
+<code class="descname">export_project</code><span class="sig-paren">(</span><em>notes</em>, <em>txtOk</em>, <em>imgOk</em>, <em>imgstepsOk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.export_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.export_project" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Asks InOut to export the data obtained during the analysis of the current <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>notes</strong> (<em>str</em>) – a string representing the notes written by the user about the current project</li>
+<li><strong>txtOk</strong> (<em>bool</em>) – a boolean representing if the text data should be exported</li>
+<li><strong>imgOk</strong> (<em>bool</em>) – a boolean representing if the final img should be exported</li>
+<li><strong>imgstepsOk</strong> (<em>bool</em>) – a boolean representing if the steps pictures should be exported</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a string indicating the success or failure of the export</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.go_to_img">
+<code class="descname">go_to_img</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.go_to_img"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.go_to_img" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Updates the <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> information so that the UI module can display a new image. Slot method for the display of a specific image from its index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>index</strong> (<em>int</em>) – the index of the image to display</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">0 if the image index exists, the non existing index otherwise</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Lève:</th><td class="field-body"><strong>IndexError</strong> – if no image exists at the specified index</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.go_to_step">
+<code class="descname">go_to_step</code><span class="sig-paren">(</span><em>iStep</em>, <em>radius=7</em>, <em>color='red'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.go_to_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.go_to_step" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Updates the <code class="xref py py-class docutils literal notranslate"><span class="pre">Analysis</span></code> information so that the UI module can display a new step image.
+Creates the image to display, with red spots to indicate the followex apex.
+Slot method for the display of a specific step from its index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>iStep</strong> (<em>int</em>) – the index of the step to display</li>
+<li><strong>radius</strong> (<em>int</em>) – the radius of the circle to draw</li>
+<li><strong>color</strong> (<em>str</em>) – the color to use for the drawing</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">0 if the step index exists, the non existing index otherwise</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first">int</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Lève:</th><td class="field-body"><p class="first last"><strong>KeyError</strong> – if the specified key does not exist</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.load_project">
+<code class="descname">load_project</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.load_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.load_project" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Initializes the <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> attribute of <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a> from the path of a pre-existing project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – the path to the project environment given by the user</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">a tuple of a boolean and a string indicating the success or failure of the project creation</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">(bool, str)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.new_project">
+<code class="descname">new_project</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.new_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.new_project" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Initializes the <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> attribute of <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a> from the path obtained by the <a class="reference internal" href="#module-Ui" title="Ui"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Ui</span></code></a> module 
+by filling the images lists <em>skelPics</em> and <em>greyPics</em> and loading those images.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – the path to the project environment given by the user</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">a tuple of a boolean and a string indicating the success or failure of the project creation</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">(bool, str)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.next_img">
+<code class="descname">next_img</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.next_img"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.next_img" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Asks for the display of the next image in the list. Slot method for the “Next image” button of the interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Renvoie:</th><td class="field-body">0 if the image index exists, the non existing index otherwise</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type renvoyé:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.next_step">
+<code class="descname">next_step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.next_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.next_step" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Asks for the display of the next step image in the list. Slot method for the “Next step” button of the interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Renvoie:</th><td class="field-body">0 if the step index exists, the non existing index otherwise</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type renvoyé:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.previous_img">
+<code class="descname">previous_img</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.previous_img"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.previous_img" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Asks for the display of the previous image in the list. Slot method for the “Previous image” button of the interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Renvoie:</th><td class="field-body">0 if the image index exists, the non existing index otherwise</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type renvoyé:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.previous_step">
+<code class="descname">previous_step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.previous_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.previous_step" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Asks for the display of the previous image step in the list. Slot method for the “Previous step” button of the interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Renvoie:</th><td class="field-body">0 if the step index exists, the non existing index otherwise</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type renvoyé:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.run" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Runs an analysis on the list of skeleton images of the project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Renvoie:</th><td class="field-body">a message indicating the state of the analysis</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type renvoyé:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.save_project">
+<code class="descname">save_project</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.save_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.save_project" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Asks InOut to save the current <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Renvoie:</th><td class="field-body">a string indicating the success or failure of the saving</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type renvoyé:</th><td class="field-body">str</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Lève:</th><td class="field-body"><strong>AttributeError</strong> – if no <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> instance exists</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.select_apex">
+<code class="descname">select_apex</code><span class="sig-paren">(</span><em>apexRealCoord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.select_apex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.select_apex" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Updates the <code class="xref py py-class docutils literal notranslate"><span class="pre">Analysis</span></code> with the apex to follow and the start image of the analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>apexRealCoord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – the <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> given by a user click</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">a message indicating that the apex and start image have been selected for the analysis</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Management.Mana.select_endImg">
+<code class="descname">select_endImg</code><span class="sig-paren">(</span><em>endImg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Management.html#Mana.select_endImg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Management.Mana.select_endImg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Updates the <code class="xref py py-class docutils literal notranslate"><span class="pre">Analysis</span></code> with the end image of the analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>endImg</strong> (<em>int</em>) – the index of the last image of the analysis, given by the user</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-InOut">
+<span id="module-inout"></span><h2>Module InOut<a class="headerlink" href="#module-InOut" title="Lien permanent vers ce titre">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Synopsis:</th><td class="field-body">This module manages the inputs and the outputs of the system and sends the information received to the module <a class="reference internal" href="#module-Management" title="Management"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Management</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="InOut.export_project">
+<code class="descclassname">InOut.</code><code class="descname">export_project</code><span class="sig-paren">(</span><em>project</em>, <em>txtOk</em>, <em>imgOk</em>, <em>imgstepsOk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InOut.html#export_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#InOut.export_project" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Exports a project in a txt format and ask the user to enter comments if he needs to.
+The <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> is exported in a file named by the current date yyyy-mm-dd-hh-mm-ss.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>project</strong> (<a class="reference internal" href="#Mushroom.Project" title="Mushroom.Project"><em>Project</em></a>) – the <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> to export</li>
+<li><strong>txtOk</strong> (<em>bool</em>) – a boolean indicating if the text data of the analysis should be exported</li>
+<li><strong>imgOk</strong> (<em>bool</em>) – a boolean indicating if the final image of the analysis should be exported</li>
+<li><strong>imgstepsOk</strong> (<em>bool</em>) – a boolean indicating if the list of the steps images should be exported</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a message indicating if the project has been correctly exported</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first">str</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Lève:</th><td class="field-body"><p class="first last"><strong>FileNotFoundError</strong> – if the save directory has not been found</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="InOut.export_steps">
+<code class="descclassname">InOut.</code><code class="descname">export_steps</code><span class="sig-paren">(</span><em>project</em>, <em>stack</em>, <em>radius=7</em>, <em>color='red'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InOut.html#export_steps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#InOut.export_steps" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that fills the colorPics attribute of <code class="xref py py-class docutils literal notranslate"><span class="pre">Analysis</span></code> with the steps images in chronological order where the currently followed apex is represented by a red circle.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>radius</strong> (<em>int</em>) – radius of the circle to draw</li>
+<li><strong>color</strong> (<em>str</em>) – color to use for the drawing</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="InOut.is_img">
+<code class="descclassname">InOut.</code><code class="descname">is_img</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InOut.html#is_img"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#InOut.is_img" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Checks that the file with the specified path “path” is an image whose format is supported by the “Image” class of PIL:</p>
+<blockquote>
+<div><ul class="simple">
+<li>BMP   Windows Bitmap</li>
+<li>GIF   Graphic Interchange Format (optional</li>
+<li>JPG   Joint Photographic Experts Group</li>
+<li>JPEG  Joint Photographic Experts Group</li>
+<li>PNG   Portable Network Graphics</li>
+<li>PPM   Portable Pixmap</li>
+<li>TIFF  Tagged Image File Format</li>
+<li>XBM   X11 Bitmap</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – the path of the file to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">True if the file that has been checked is in a supported format, False otherwise</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="InOut.load_pictures">
+<code class="descclassname">InOut.</code><code class="descname">load_pictures</code><span class="sig-paren">(</span><em>project</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InOut.html#load_pictures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#InOut.load_pictures" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Loads the images from the directories “skeletons” and “regMosaic” given by the project path attribute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><p class="first"><strong>project</strong> (<a class="reference internal" href="#Mushroom.Project" title="Mushroom.Project"><em>Project</em></a>) – the project giving the path to the images to load</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a tuple of a boolean and a string indicating the state of the creation of the project environment</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first">(bool, str)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Lève:</th><td class="field-body"><ul class="first last simple">
+<li><strong>FileNotFoundError</strong> – if the skeleton or greyscale images directory has not been found</li>
+<li><strong>NotADirectoryError</strong> – if the path specified is not the path of a directory</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="InOut.new_directory">
+<code class="descclassname">InOut.</code><code class="descname">new_directory</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InOut.html#new_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#InOut.new_directory" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Creates a new directory thankes to the module <code class="xref py py-mod docutils literal notranslate"><span class="pre">os</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – the path to create the directory</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Lève:</th><td class="field-body"><strong>IOError</strong> – if the specified directory has not been correctly created</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="InOut.new_environment">
+<code class="descclassname">InOut.</code><code class="descname">new_environment</code><span class="sig-paren">(</span><em>project</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InOut.html#new_environment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#InOut.new_environment" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Creates a new project environment:</p>
+<blockquote>
+<div><ul class="simple">
+<li>load images from directories with absolute path “path+skeletons” and “path+regMosaic” thanks to the function <a class="reference internal" href="#InOut.load_pictures" title="InOut.load_pictures"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_pictures()</span></code></a>;</li>
+<li>if it doesn’t exist, create a new directory “save” in the path of the project;</li>
+<li>if it doesn’t exist, create a new directory “export” in the path of the project.</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>project</strong> (<a class="reference internal" href="#Mushroom.Project" title="Mushroom.Project"><em>Project</em></a>) – the <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> whose environment needs to be created</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">a tuple of a boolean and a string indicating the state of the creation of the project environment</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">(bool, str)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="InOut.open_project">
+<code class="descclassname">InOut.</code><code class="descname">open_project</code><span class="sig-paren">(</span><em>path_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InOut.html#open_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#InOut.open_project" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Opens an already saved project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><p class="first"><strong>path_file</strong> (<em>str</em>) – the path to the project save</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">the <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> of the module <a class="reference internal" href="#module-Mushroom" title="Mushroom"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Mushroom</span></code></a> extracted from the save and a boolean and a string indicating the state of the creation of the project</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first">(<a class="reference internal" href="#Mushroom.Project" title="Mushroom.Project">Project</a>, bool, str)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Lève:</th><td class="field-body"><ul class="first last simple">
+<li><strong>FileNotFoundError</strong> – if no file can be found at the specified path</li>
+<li><strong>UnpicklingError</strong> – if the unpickling fails</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="InOut.save_project">
+<code class="descclassname">InOut.</code><code class="descname">save_project</code><span class="sig-paren">(</span><em>project</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InOut.html#save_project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#InOut.save_project" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Saves the project in a file named by the date thanks to the module <code class="xref py py-mod docutils literal notranslate"><span class="pre">datetime</span></code> without its images.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>project</strong> (<a class="reference internal" href="#Mushroom.Project" title="Mushroom.Project"><em>Project</em></a>) – the <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code> to save</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">a message indicating if the saving worked</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">str</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Lève:</th><td class="field-body"><strong>FileNotFoundError</strong> – if the save directory has not been found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-AI">
+<span id="module-ai"></span><h2>Module AI<a class="headerlink" href="#module-AI" title="Lien permanent vers ce titre">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Synopsis:</th><td class="field-body">The module AI enables the analysis on a given set of data.
+It allows the following of the evolution of an apex and all its hyphae daughters,
+the cutting into segments, the size calculation of each segment and the composition of all the hyphae.
+It also saves the id number of the image and the coordinates of the followed apex during 
+each step in order to make it easier to visualize it on the user interface.</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="AI.apex_path_verification">
+<code class="descclassname">AI.</code><code class="descname">apex_path_verification</code><span class="sig-paren">(</span><em>coord1</em>, <em>segment</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#apex_path_verification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.apex_path_verification" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that defines whether the apex identified on the image matches the trajectory of the apex on the previous image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>coord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of the followed apex</li>
+<li><strong>segment</strong> (<a class="reference internal" href="#Mushroom.HyphaSegment" title="Mushroom.HyphaSegment"><em>HyphaSegment</em></a>) – the last <code class="xref py py-class docutils literal notranslate"><span class="pre">HyphaSegment</span></code> saved</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a boolean indicating if this is the right apex that was followed</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.calculated_size">
+<code class="descclassname">AI.</code><code class="descname">calculated_size</code><span class="sig-paren">(</span><em>segment</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#calculated_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.calculated_size" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that calculates the size of a <code class="xref py py-class docutils literal notranslate"><span class="pre">HyphaSegment</span></code> (itself containing several <code class="xref py py-class docutils literal notranslate"><span class="pre">HyphaSegment</span></code>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>segment</strong> (<a class="reference internal" href="#Mushroom.HyphaSegment" title="Mushroom.HyphaSegment"><em>HyphaSegment</em></a>) – one HyphaSegment</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">the size of the segment (in pixels)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.check_apexCoord_newPic">
+<code class="descclassname">AI.</code><code class="descname">check_apexCoord_newPic</code><span class="sig-paren">(</span><em>picture1</em>, <em>picture2</em>, <em>list_pixels</em>, <em>coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#check_apexCoord_newPic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.check_apexCoord_newPic" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that will check if the starting pixels of the analysis of the skeletonized image match the <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of the previous image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>picture1</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) of the first image to analyze and its name</li>
+<li><strong>picture2</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) of the second image to analyze and its name</li>
+<li><strong>list_pixels</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – already found pixels coordinates list</li>
+<li><strong>coord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of the pixel to analyze</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a tuple that precises that the analysis can start, and the <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of start of the analysis</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">(str, <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates">Coordinates</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.check_point">
+<code class="descclassname">AI.</code><code class="descname">check_point</code><span class="sig-paren">(</span><em>picture</em>, <em>coord</em>, <em>size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#check_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.check_point" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that will analyze the pixels around the <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> received in the parameters of the pixel of the image.
+The size of the matrix is defined in the parameters.
+Once the analysis is completed, the already found pixels list is updated and precises if the image analysis must go on or not.
+If the analysis is not continued, it precises if the pixel is an apex, a node or an artefact.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>picture</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) to analyze and its name</li>
+<li><strong>coord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of the pixel to analyze</li>
+<li><strong>size</strong> (<em>int</em>) – size of the matrix</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a list of all the white pixels coordinates of the area</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">list[<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates">Coordinates</a>]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.connect_pixelCoord_newPic">
+<code class="descclassname">AI.</code><code class="descname">connect_pixelCoord_newPic</code><span class="sig-paren">(</span><em>picture</em>, <em>liste_pixel</em>, <em>coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#connect_pixelCoord_newPic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.connect_pixelCoord_newPic" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that will see in a certain distance around the received <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code>, to determine the 2
+pixels neighbors the closest to the received <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code>.
+Then it will reconstruct the «&nbsp;path of pixel&nbsp;» of this pixel couple, by substituting 
+the <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> between the position of the pixel couple and the received <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> in list_pixel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>picture</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) to analyze and its name</li>
+<li><strong>list_pixels</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – already found pixels <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> list</li>
+<li><strong>coord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of the pixel to analyze</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a tuple that specifies that the analysis can start, and specifies the <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of start of the analysis</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">(str, <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates">Coordinates</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.delete_pixel_same">
+<code class="descclassname">AI.</code><code class="descname">delete_pixel_same</code><span class="sig-paren">(</span><em>list1</em>, <em>list2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#delete_pixel_same"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.delete_pixel_same" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that will remove from list1 all the pixels <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> from list2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>list1</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – pixels list</li>
+<li><strong>list2</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – pixels list</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a list of all the <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of unknown pixels in list2</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">list[<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates">Coordinates</a>]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.init_list_pixels">
+<code class="descclassname">AI.</code><code class="descname">init_list_pixels</code><span class="sig-paren">(</span><em>list_pixels</em>, <em>picture</em>, <em>coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#init_list_pixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.init_list_pixels" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that initializes list_pixel by filling it with the 7 pixels of end that follow the selected apex.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>list_pixel</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – a pixel list</li>
+<li><strong>picture1</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) to analyze and its name</li>
+<li><strong>coord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of a white pixel</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.is_apex">
+<code class="descclassname">AI.</code><code class="descname">is_apex</code><span class="sig-paren">(</span><em>picture</em>, <em>coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#is_apex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.is_apex" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that determines if the selected <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> are those of an apex.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>picture1</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) of the first image to analyze and its name</li>
+<li><strong>coord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of a pixel</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a boolean precising if there is an apex on the selected point, and the real point of the apex.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">(bool, str)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.list_hypha_creation">
+<code class="descclassname">AI.</code><code class="descname">list_hypha_creation</code><span class="sig-paren">(</span><em>segments</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#list_hypha_creation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.list_hypha_creation" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method allowing the construction of a dictionary of hyphae, 
+containing all the numbers of the hyphae segments which make up each one of them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>segments</strong> (<em>dict{int : list</em><em>[</em><a class="reference internal" href="#Mushroom.HyphaSegment" title="Mushroom.HyphaSegment"><em>HyphaSegment</em></a><em>]</em><em>}</em>) – a dictionnary of <code class="xref py py-class docutils literal notranslate"><span class="pre">HyphaSegment</span></code> with their ID numbers as key</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">a dictionary of a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">HyphaSegment</span></code> number IDs with the number of the corresponding hypha as key</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">dict{int : list[int]}</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.photography_zone_comparison">
+<code class="descclassname">AI.</code><code class="descname">photography_zone_comparison</code><span class="sig-paren">(</span><em>picture1</em>, <em>picture2</em>, <em>list_pixels</em>, <em>list_foreign_pixel</em>, <em>coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#photography_zone_comparison"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.photography_zone_comparison" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that «&nbsp;captures&nbsp;» an area of 120 pixel of radius around a point (coord) on an image, then checks all the pixels that don’t belong to the analyzed hypha.
+Then, it «&nbsp;captures&nbsp;» the same area on a new image to tell where the pixels that don’t belong to the currently analysed hypha are located (and adds them to list_foreign_pixel).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first last simple">
+<li><strong>picture1</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) of the first image to analyze and its name</li>
+<li><strong>picture2</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) of the second image to analyze and its name</li>
+<li><strong>list_pixels</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – already found pixels <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> list</li>
+<li><strong>list_foreign_pixel</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> list of a known pixel that don’t belong to the currently analyzed hypha</li>
+<li><strong>coord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of the pixel to analyze</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.picture_analyze">
+<code class="descclassname">AI.</code><code class="descname">picture_analyze</code><span class="sig-paren">(</span><em>picture</em>, <em>list_pixels</em>, <em>list_foreign_pixel</em>, <em>coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#picture_analyze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.picture_analyze" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that will analyze the received image to see the evolution of the apex and return a new set of data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>picture</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – image tuple (skeleton) to analyze and its name</li>
+<li><strong>list_pixels</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> of the already found pixels</li>
+<li><strong>list_foreign_pixel</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – known pixels <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code> list not linked to the hypha in the ongoing analysis</li>
+<li><strong>coord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – coordinates of the pixel to analyze</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a tuple stating if what has been found is a node, an apex, or an artefact, and suitable <code class="xref py py-class docutils literal notranslate"><span class="pre">Coordinates</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">(str, <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates">Coordinates</a>, <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates">Coordinates</a>, <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates">Coordinates</a>, int)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.play_analysis">
+<code class="descclassname">AI.</code><code class="descname">play_analysis</code><span class="sig-paren">(</span><em>pictures</em>, <em>analysis</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#play_analysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.play_analysis" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method enabling the analysis managing and extracting the list data of the received images.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>pictures</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – list of successive hyphae growth images</li>
+<li><strong>analysis</strong> (<a class="reference internal" href="#Mushroom.Analysis" title="Mushroom.Analysis"><em>Analysis</em></a>) – the attribute <code class="xref py py-class docutils literal notranslate"><span class="pre">Analysis</span></code> of the project</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">True when the analysis is done, False otherwise and a string indicating the state of the analysis</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">(bool, str)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.shift_correction">
+<code class="descclassname">AI.</code><code class="descname">shift_correction</code><span class="sig-paren">(</span><em>picture1</em>, <em>picture2</em>, <em>list_pixels</em>, <em>coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#shift_correction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.shift_correction" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that allows the rectification of the localisation of the last pixels on the next analyzed image throughout a lag.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>picture1</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) of the first to analyze and it’s name</li>
+<li><strong>picture2</strong> (<em>list</em><em>[</em><em>Image</em><em>, </em><em>str</em><em>]</em>) – an image tuple (skeleton) of the second to analyze and it’s name</li>
+<li><strong>list_pixels</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a><em>]</em>) – coordinates list of an already found pixel</li>
+<li><strong>coord</strong> (<a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates"><em>Coordinates</em></a>) – coordinates of the pixel to analyze</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">a message stating the start of the analysis, along with the rectified coordinates of start of the analysis</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">(str, <a class="reference internal" href="#Mushroom.Coordinates" title="Mushroom.Coordinates">Coordinates</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="AI.three_pixels">
+<code class="descclassname">AI.</code><code class="descname">three_pixels</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>ray</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/AI.html#three_pixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#AI.three_pixels" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Method that compares 2 numbers to see if there’s a gap of 3 or less between them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>x1</strong> (<em>int</em>) – a number to compare</li>
+<li><strong>x2</strong> (<em>int</em>) – a number to compare</li>
+<li><strong>ray</strong> (<em>int</em>) – a size of distance to comppare</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">True if less than 3 of gap, False otherwise</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="4_SkelHypha.html" class="btn btn-neutral float-right" title="SkelHypha" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="2_TrackHypha_UserDoc.html" class="btn btn-neutral float-left" title="Documentation utilisateur" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Salomé Attar, Bouthayna Haltout, Sébastien Maillos, Laura Xénard
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,890 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AI &mdash; Documentation TrackHypha / SkelHypha 1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TrackHypha / SkelHypha
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table des matières</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1_TrackHypha.html">TrackHypha</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_SkelHypha.html">SkelHypha</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TrackHypha / SkelHypha</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Code du module</a> &raquo;</li>
+        
+      <li>AI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de AI</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1">#     This module is part of TrackHypha, an application that analyzes the </span>
+<span class="c1">#     filamentous network of a mushroom by following one of its apex. </span>
+<span class="c1">#     Copyright (C)  2019  Salomé Attar, </span>
+<span class="c1">#                          Bouthayna Haltout, </span>
+<span class="c1">#                          Sébastien Maillos, </span>
+<span class="c1">#                          Laura Xénard</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#     it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#     (at your option) any later version.</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1">#     GNU General Public License for more details.</span>
+<span class="c1"># </span>
+<span class="c1">#     You should have received a copy of the GNU General Public License</span>
+<span class="c1">#     along with this program. If not, see https://www.gnu.org/licenses/.</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:Synopsis: </span>
+<span class="sd">    The module AI enables the analysis on a given set of data.</span>
+<span class="sd">    It allows the following of the evolution of an apex and all its hyphae daughters,</span>
+<span class="sd">    the cutting into segments, the size calculation of each segment and the composition of all the hyphae.</span>
+<span class="sd">    It also saves the id number of the image and the coordinates of the followed apex during </span>
+<span class="sd">    each step in order to make it easier to visualize it on the user interface.</span>
+
+<span class="sd">.. moduleauthor:: Salomé Attar</span>
+<span class="sd">.. moduleauthor:: Bouthayna Haltout</span>
+<span class="sd">.. moduleauthor:: Sébastien Maillos</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">math</span> 
+<span class="kn">import</span> <span class="nn">Mushroom</span> <span class="k">as</span> <span class="nn">msh</span> 
+
+
+<div class="viewcode-block" id="play_analysis"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.play_analysis">[docs]</a><span class="k">def</span> <span class="nf">play_analysis</span><span class="p">(</span><span class="n">pictures</span><span class="p">,</span> <span class="n">analysis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Method enabling the analysis managing and extracting the list data of the received images.</span>
+
+<span class="sd">    :param pictures: list of successive hyphae growth images</span>
+<span class="sd">    :type pictures: list[Image, str]</span>
+<span class="sd">    :param Analysis analysis: the attribute :class:`Analysis` of the project </span>
+<span class="sd">    :return: True when the analysis is done, False otherwise and a string indicating the state of the analysis</span>
+<span class="sd">    :rtype: (bool, str)</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Salomé Attar</span>
+<span class="sd">    .. codeauthor:: Bouthayna Haltout    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># initialization of the variables :</span>
+    <span class="n">analyze</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">segment</span> <span class="o">=</span> <span class="n">msh</span><span class="o">.</span><span class="n">HyphaSegment</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">analysis</span><span class="o">.</span><span class="n">startApex</span><span class="p">)</span>
+    <span class="n">segment</span><span class="o">.</span><span class="n">evolution</span><span class="p">[</span><span class="n">analysis</span><span class="o">.</span><span class="n">startImg</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">startApex</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Will contain a list of each entry. List components : 1: image of where the node is, 2: coordinates of the node.</span>
+    <span class="n">num_picture</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">startImg</span>
+    <span class="n">coord_analyze</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">startApex</span>
+    <span class="n">previous_coord_analyze</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">startApex</span>
+    <span class="n">list_skelPics</span> <span class="o">=</span> <span class="n">pictures</span>
+    <span class="n">check_pixel_no_hypha</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">init_list_pixels</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">list_pixels</span><span class="p">,</span> <span class="n">list_skelPics</span><span class="p">[</span><span class="n">num_picture</span><span class="p">],</span> <span class="n">analysis</span><span class="o">.</span><span class="n">startApex</span><span class="p">)</span>
+    
+    <span class="n">num_step</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">analyze</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> <span class="c1"># As long as the analysis is ongoing.</span>
+        <span class="n">num_step</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">list_foreign_pixel</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># This part is launched only when the analysis changes the image to continue the following of the apex.</span>
+        <span class="c1"># (Not for the return on an image through a node nor an artefact, because the analysis of the area and the referal of the pixels not belonging to the hypha has already been done.)</span>
+        <span class="k">if</span> <span class="n">check_pixel_no_hypha</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1">#Looks in the area of the new image and localize the pixels not belonging to the hypha and update list_foreign_pixel.</span>
+            <span class="n">photography_zone_comparison</span><span class="p">(</span><span class="n">list_skelPics</span><span class="p">[</span><span class="n">num_picture</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">list_skelPics</span><span class="p">[</span><span class="n">num_picture</span><span class="p">],</span> <span class="n">analysis</span><span class="o">.</span><span class="n">list_pixels</span><span class="p">,</span><span class="n">list_foreign_pixel</span><span class="p">,</span> <span class="n">previous_coord_analyze</span><span class="p">)</span>
+            <span class="c1"># If needed, rectify the analysis coordinates ( if they change on the new image ).</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">check_apexCoord_newPic</span><span class="p">(</span><span class="n">list_skelPics</span><span class="p">[</span><span class="n">num_picture</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">list_skelPics</span><span class="p">[</span><span class="n">num_picture</span><span class="p">],</span> <span class="n">analysis</span><span class="o">.</span><span class="n">list_pixels</span><span class="p">,</span> <span class="n">coord_analyze</span><span class="p">)</span>
+            <span class="n">check_pixel_no_hypha</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">=</span><span class="s2">&quot;No analysis&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">coord_analyze</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> 
+        <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="s2">&quot;No analysis&quot;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">picture_analyze</span><span class="p">(</span><span class="n">list_skelPics</span><span class="p">[</span><span class="n">num_picture</span><span class="p">],</span> <span class="n">analysis</span><span class="o">.</span><span class="n">list_pixels</span><span class="p">,</span> <span class="n">list_foreign_pixel</span><span class="p">,</span> <span class="n">coord_analyze</span><span class="p">)</span> <span class="c1">#A couple (string,coordinates).           </span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Error, pixel list is void&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Apex&quot;</span> <span class="p">:</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">deadEnd</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">evolution</span><span class="p">[</span><span class="n">num_picture</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+            <span class="n">num_picture</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="n">previous_coord_analyze</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">coord_analyze</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;o&quot;</span> <span class="ow">or</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span> <span class="ow">or</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;e&quot;</span> <span class="ow">or</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;N&quot;</span><span class="p">:</span>
+                <span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">num_step</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">num_step</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_picture</span><span class="p">]</span>
+            <span class="n">check_pixel_no_hypha</span> <span class="o">=</span> <span class="kc">True</span>
+            
+            <span class="k">if</span> <span class="n">num_picture</span> <span class="o">&gt;</span> <span class="n">analysis</span><span class="o">.</span><span class="n">endImg</span><span class="p">:</span> <span class="c1"># If it&#39;s the last image.</span>
+                <span class="n">segment</span><span class="o">.</span><span class="n">coord</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">segment</span><span class="o">.</span><span class="n">evolution</span><span class="p">[</span><span class="n">num_picture</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+                <span class="n">segment</span><span class="o">.</span><span class="n">deadEnd</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">segment</span><span class="o">.</span><span class="n">size</span><span class="o">=</span><span class="n">calculated_size</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+                <span class="n">analysis</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="n">segment</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">segment</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">nodes</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span> <span class="c1"># If none of the above, but the analysis continue. </span>
+                    <span class="n">segment</span> <span class="o">=</span> <span class="n">msh</span><span class="o">.</span><span class="n">HyphaSegment</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="c1">#We put nodes instead of result[2] because we go backwards and we want the coordinates of the last node.</span>
+                    <span class="n">segment</span><span class="o">.</span><span class="n">evolution</span><span class="p">[</span><span class="n">num_picture</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">num_picture</span><span class="o">=</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># We go to the last node of the list, and we take the first on the list. </span>
+                    <span class="n">coord_analyze</span><span class="o">=</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># We delete the last node from the list to update it.</span>
+              
+        <span class="k">elif</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Node&quot;</span><span class="p">:</span> <span class="c1"># If the found pixel is a node.</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">coord</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Segment update. </span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">evolution</span><span class="p">[</span><span class="n">num_picture</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">deadEnd</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">calculated_size</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+            <span class="n">analysis</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="n">segment</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">segment</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;o&quot;</span> <span class="ow">or</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span> <span class="ow">or</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;e&quot;</span> <span class="ow">or</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;N&quot;</span><span class="p">:</span>
+                <span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">num_step</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">num_step</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_picture</span><span class="p">]</span>
+            <span class="n">previous_id</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">segment</span> <span class="o">=</span> <span class="n">msh</span><span class="o">.</span><span class="n">HyphaSegment</span><span class="p">(</span><span class="n">previous_id</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">evolution</span><span class="p">[</span><span class="n">num_picture</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">num_picture</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">previous_id</span><span class="p">])</span>
+            <span class="n">coord_analyze</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;No analysis&quot;</span><span class="p">:</span>
+            <span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">num_step</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="n">num_picture</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># If it&#39;s an artefact.</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">coord</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">evolution</span><span class="p">[</span><span class="n">num_picture</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">deadEnd</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">size</span><span class="o">=</span><span class="n">calculated_size</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+            <span class="n">analysis</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="n">segment</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">segment</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;o&quot;</span> <span class="ow">or</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span> <span class="ow">or</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;e&quot;</span> <span class="ow">or</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;N&quot;</span><span class="p">:</span>
+                <span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">num_step</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="n">num_step</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">num_picture</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">segment</span> <span class="o">=</span> <span class="n">msh</span><span class="o">.</span><span class="n">HyphaSegment</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">segment</span><span class="o">.</span><span class="n">evolution</span><span class="p">[</span><span class="n">num_picture</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">num_picture</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># We go to the last node on the list, and on this list we want the first node.</span>
+                <span class="n">coord_analyze</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">del</span> <span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># We delete the last node from the list to update it.</span>
+
+    <span class="n">result_hyphae</span> <span class="o">=</span> <span class="n">list_hypha_creation</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">segments</span><span class="p">)</span> 
+    <span class="k">if</span> <span class="n">result_hyphae</span> <span class="o">==</span> <span class="s2">&quot;Error, segments dict is void&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">result_hyphae</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">analysis</span><span class="o">.</span><span class="n">hyphae</span> <span class="o">=</span> <span class="n">result_hyphae</span>
+        
+    <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Analysis ended.&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="list_hypha_creation"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.list_hypha_creation">[docs]</a><span class="k">def</span> <span class="nf">list_hypha_creation</span><span class="p">(</span><span class="n">segments</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method allowing the construction of a dictionary of hyphae, </span>
+<span class="sd">    containing all the numbers of the hyphae segments which make up each one of them.</span>
+<span class="sd">    </span>
+<span class="sd">    :param segments: a dictionnary of :class:`HyphaSegment` with their ID numbers as key </span>
+<span class="sd">    :type segments: dict{int : list[HyphaSegment]}    </span>
+<span class="sd">    :return: a dictionary of a list of :class:`HyphaSegment` number IDs with the number of the corresponding hypha as key</span>
+<span class="sd">    :rtype: dict{int : list[int]}</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Salomé Attar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">segments</span><span class="p">:</span> <span class="c1"># If the sent pixel list is empty, the analysis is impossible. </span>
+         <span class="k">return</span> <span class="s2">&quot;Error, segments dict is void&quot;</span> 
+        
+    <span class="n">hyphae</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">segments</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">deadEnd</span><span class="p">:</span>
+            <span class="n">hypha</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="n">seg</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">seg</span><span class="o">.</span><span class="n">previous</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+               <span class="n">seg</span> <span class="o">=</span> <span class="n">segments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">previous</span><span class="p">)</span>
+               <span class="n">hypha</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+               <span class="n">size</span><span class="o">+=</span><span class="n">seg</span><span class="o">.</span><span class="n">size</span>
+               <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="n">hypha</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+            <span class="n">hyphae</span><span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">)]</span> <span class="o">=</span> <span class="n">hypha</span>
+            <span class="n">h</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">hyphae</span></div>
+ 
+<div class="viewcode-block" id="picture_analyze"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.picture_analyze">[docs]</a><span class="k">def</span> <span class="nf">picture_analyze</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">,</span> <span class="n">list_foreign_pixel</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that will analyze the received image to see the evolution of the apex and return a new set of data. </span>
+<span class="sd">    </span>
+<span class="sd">    :param picture: image tuple (skeleton) to analyze and its name</span>
+<span class="sd">    :type picture: list[Image, str]</span>
+<span class="sd">    :param list_pixels: list of :class:`Coordinates` of the already found pixels</span>
+<span class="sd">    :type list_pixels: list[Coordinates]</span>
+<span class="sd">    :param list_foreign_pixel: known pixels :class:`Coordinates` list not linked to the hypha in the ongoing analysis </span>
+<span class="sd">    :type list_foreign_pixel: list[Coordinates]</span>
+<span class="sd">    :param Coordinates coord: coordinates of the pixel to analyze</span>
+<span class="sd">    :return: a tuple stating if what has been found is a node, an apex, or an artefact, and suitable :class:`Coordinates`</span>
+<span class="sd">    :rtype: (str, Coordinates, Coordinates, Coordinates, int)</span>
+<span class="sd">     </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Salomé Attar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+     
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">list_pixels</span><span class="p">:</span> <span class="c1"># If the sent pixel list is empty, the analysis is impossible. </span>
+         <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Error, pixel list is void&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>    
+    
+    <span class="n">list_pixels_segment</span> <span class="o">=</span> <span class="p">[]</span>         
+    <span class="c1"># Start of the loop of the pixel by pixel analysis.</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">liste_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> 
+        <span class="n">liste_temp</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">)</span>
+        <span class="n">liste_temp</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">,</span> <span class="n">list_foreign_pixel</span><span class="p">)</span>
+        <span class="c1"># According to the remaining number of pixels in the temporary list, we send to play_analyze different informations.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">liste_temp</span><span class="p">:</span> <span class="c1"># If the temporary list is empty, this means that the last found pixel was an Apex.</span>
+            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Apex&quot;</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_pixels_segment</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># If the temporary list contains a pixel, that means that we have to start over on the new pixel found.</span>
+            <span class="n">list_pixels_segment</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">list_pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">coord</span><span class="o">=</span><span class="n">liste_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># If the temporary list contains 2 pixels, that means that the hypha is splitting in two, and that we have a node at that spot. </span>
+            <span class="n">list_pixels_segment</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">list_pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">list_pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="c1"># returns the coordunates in order: 1-Pixel of end of hypha segment, 2-Pixel of start of hypha segment following to analyze, 3-Pixel of start of hypha segment upcoming to store in Nodes.</span>
+            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_pixels_segment</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># if the temporary list contains more than 2 pixels, that means that there is an artefact in that emplacement on the image.</span>
+            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Artefact&quot;</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_pixels_segment</span><span class="p">))</span></div>
+                
+<div class="viewcode-block" id="check_point"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.check_point">[docs]</a><span class="k">def</span> <span class="nf">check_point</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that will analyze the pixels around the :class:`Coordinates` received in the parameters of the pixel of the image.</span>
+<span class="sd">    The size of the matrix is defined in the parameters.</span>
+<span class="sd">    Once the analysis is completed, the already found pixels list is updated and precises if the image analysis must go on or not.</span>
+<span class="sd">    If the analysis is not continued, it precises if the pixel is an apex, a node or an artefact.</span>
+<span class="sd">    </span>
+<span class="sd">    :param picture: an image tuple (skeleton) to analyze and its name </span>
+<span class="sd">    :type picture: list[Image, str]</span>
+<span class="sd">    :param Coordinates coord: :class:`Coordinates` of the pixel to analyze</span>
+<span class="sd">    :param int size: size of the matrix  </span>
+<span class="sd">    :return: a list of all the white pixels coordinates of the area</span>
+<span class="sd">    :rtype: list[Coordinates]</span>
+<span class="sd">     </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">liste_temp</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># create a temporary list to store the coordinates of the white pixels found during the analysis.</span>
+    
+    <span class="k">if</span> <span class="n">size</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">size</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># coordinates x of the last pixel of the list.</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">-</span><span class="n">size</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># coordinates y of the last pixel of the list.</span>
+        <span class="n">sizeM</span> <span class="o">=</span> <span class="n">size</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># if the size of the matrix is even, it&#39;s transformed in an uneven matrix.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># coordinates x of the last pixel of the list.</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># coordinates y of the last pixel of the list. </span>
+        <span class="n">sizeM</span> <span class="o">=</span> <span class="n">size</span>
+    
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sizeM</span><span class="p">:</span> <span class="c1"># travels all the abscissae of the matrix.</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">sizeM</span><span class="p">:</span> <span class="c1"># travels all the ordinates of the matrix.</span>
+            <span class="k">if</span> <span class="n">picture</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">j</span><span class="p">))</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span> <span class="c1"># if a pixel is white, we add it to the temporary list sent.</span>
+                <span class="n">liste_temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msh</span><span class="o">.</span><span class="n">Coordinates</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">j</span><span class="p">))</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">liste_temp</span></div>
+
+<div class="viewcode-block" id="check_apexCoord_newPic"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.check_apexCoord_newPic">[docs]</a><span class="k">def</span> <span class="nf">check_apexCoord_newPic</span><span class="p">(</span><span class="n">picture1</span><span class="p">,</span> <span class="n">picture2</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that will check if the starting pixels of the analysis of the skeletonized image match the :class:`Coordinates` of the previous image.</span>
+<span class="sd">    </span>
+<span class="sd">    :param picture1: an image tuple (skeleton) of the first image to analyze and its name</span>
+<span class="sd">    :type picture1: list[Image, str] </span>
+<span class="sd">    :param picture2: an image tuple (skeleton) of the second image to analyze and its name</span>
+<span class="sd">    :type picture2: list[Image, str]</span>
+<span class="sd">    :param list_pixels: already found pixels coordinates list </span>
+<span class="sd">    :type list_pixels: list[Coordinates]</span>
+<span class="sd">    :param Coordinates coord: :class:`Coordinates` of the pixel to analyze     </span>
+<span class="sd">    :return: a tuple that precises that the analysis can start, and the :class:`Coordinates` of start of the analysis</span>
+<span class="sd">    :rtype: (str, Coordinates)</span>
+<span class="sd">     </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">list_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">list_temp</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">list_temp</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">)</span>
+        
+    <span class="c1"># If the pixel is still on the new image</span>
+    <span class="c1"># Only if one or zero are unknown, then we can launch the analysis (the 2 pixels that we need for the analysis are on the right position).</span>
+    <span class="c1"># :class:`Coordinates`If 2 pixels or more are unknown, I launch the rewriting of the end of the hypha function on the new image.</span>
+    <span class="k">if</span> <span class="n">picture2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">coord</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">coord</span><span class="o">.</span><span class="n">y</span><span class="p">))</span> <span class="o">==</span> <span class="mi">255</span> <span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_temp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Start analyzing&quot;</span><span class="p">,</span> <span class="n">coord</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">list_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">list_temp</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">list_temp</span><span class="p">,</span> <span class="p">[</span><span class="n">coord</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">ele1</span> <span class="ow">in</span> <span class="n">list_pixels</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ele1</span> <span class="o">!=</span> <span class="n">coord</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">ele2</span> <span class="ow">in</span> <span class="n">list_temp</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">ele2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">ele2</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span> <span class="p">:</span>
+                            <span class="n">list_pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ele2</span><span class="p">)</span>
+                            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Start analyzing&quot;</span><span class="p">,</span> <span class="n">coord</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">shift_correction</span><span class="p">(</span><span class="n">picture1</span><span class="p">,</span> <span class="n">picture2</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">,</span> <span class="n">coord</span><span class="p">)</span>
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">shift_correction</span><span class="p">(</span><span class="n">picture1</span><span class="p">,</span><span class="n">picture2</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">,</span> <span class="n">coord</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="connect_pixelCoord_newPic"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.connect_pixelCoord_newPic">[docs]</a><span class="k">def</span> <span class="nf">connect_pixelCoord_newPic</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">liste_pixel</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that will see in a certain distance around the received :class:`Coordinates`, to determine the 2</span>
+<span class="sd">    pixels neighbors the closest to the received :class:`Coordinates`.</span>
+<span class="sd">    Then it will reconstruct the &quot;path of pixel&quot; of this pixel couple, by substituting </span>
+<span class="sd">    the :class:`Coordinates` between the position of the pixel couple and the received :class:`Coordinates` in list_pixel.</span>
+<span class="sd">   </span>
+<span class="sd">    :param picture: an image tuple (skeleton) to analyze and its name</span>
+<span class="sd">    :type picture: list[Image, str]</span>
+<span class="sd">    :param list_pixels: already found pixels :class:`Coordinates` list  </span>
+<span class="sd">    :type list_pixels: list[Coordinates]</span>
+<span class="sd">    :param Coordinates coord: :class:`Coordinates` of the pixel to analyze </span>
+<span class="sd">    :return: a tuple that specifies that the analysis can start, and specifies the :class:`Coordinates` of start of the analysis</span>
+<span class="sd">    :rtype: (str, Coordinates)</span>
+<span class="sd">     </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">liste_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+    
+    <span class="c1"># travels the two lists (temporary and received) and delete from the temporary list all the unknown pixels (in the received list).</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">coordPx</span> <span class="ow">in</span> <span class="n">liste_pixel</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">liste_temp</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">coordPx</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">coordPx</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+                    <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="n">liste_temp</span> <span class="o">=</span> <span class="n">temp</span> <span class="c1"># liste_temp now contains all the known pixels of the matrix to analyze.</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">liste_temp</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>   
+        <span class="c1"># retrieves the index where we find those coodinates where we were supposed to work on.</span>
+        <span class="n">coord_position_liste_pixel</span> <span class="o">=</span> <span class="n">liste_pixel</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
+    
+        <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># travels liste_temp and removes all the pixels of which the index in liste_pixel is over the pixel of reference(coord).</span>
+        <span class="n">position_liste_pixel1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># We initialize it to -1 which will retrun an error if the variable doesn&#39;t change. </span>
+        <span class="n">position_liste_pixel2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># We initialize it to -1 which will retrun an error if the variable doesn&#39;t change.</span>
+        <span class="c1"># We only keep the known pixels in liste_pixel that are lower (index) than the referencial pixel (coord)</span>
+        <span class="k">for</span> <span class="n">px</span> <span class="ow">in</span> <span class="n">liste_temp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">liste_temp</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">px</span><span class="p">)</span><span class="o">&lt;</span><span class="n">coord_position_liste_pixel</span><span class="p">:</span>
+                <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">px</span><span class="p">)</span>
+    
+        <span class="n">liste_temp</span> <span class="o">=</span> <span class="n">temp</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+        <span class="c1"># Travels the list backwards to find the pixel couple the closest from coord that hasn&#39;t changed its coordinates between the two images.</span>
+        <span class="c1"># Starts from the bottomof the list(highest index)</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># We check that the first pixel in liste_pixel is also present in liste_temp.</span>
+            <span class="k">for</span> <span class="n">ipx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">liste_pixel</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">liste_temp</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">liste_pixel</span><span class="p">[</span><span class="n">ipx</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">liste_temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">liste_pixel</span><span class="p">[</span><span class="n">ipx</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+                        <span class="n">position_liste_pixel1</span> <span class="o">=</span> <span class="n">ipx</span>
+                        <span class="c1"># We then check if the previous pixel in liste_pixel is present also in liste_temp.</span>
+            <span class="k">for</span> <span class="n">ipx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">liste_temp</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">liste_temp</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">liste_pixel</span><span class="p">[</span><span class="n">position_liste_pixel1</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">liste_temp</span><span class="p">[</span><span class="n">ipx</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">liste_pixel</span><span class="p">[</span><span class="n">position_liste_pixel1</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">liste_temp</span><span class="p">[</span><span class="n">ipx</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+                        <span class="n">position_liste_pixel2</span> <span class="o">=</span> <span class="n">position_liste_pixel1</span><span class="o">-</span><span class="mi">1</span>
+            <span class="c1"># If the two positions are known then at it&#39;s the end of the search, otherwise we try again.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">position_liste_pixel1</span> <span class="ow">and</span> <span class="n">position_liste_pixel2</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">position_liste_pixel1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">position_liste_pixel2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="n">i</span><span class="o">-=</span><span class="mi">1</span>   
+
+        <span class="c1"># Phase of reconstruction in the liste_pixel between the found couple and coord.</span>
+        <span class="n">nbp</span> <span class="o">=</span> <span class="n">coord_position_liste_pixel</span><span class="o">-</span><span class="n">position_liste_pixel1</span>
+        <span class="n">false_liste</span> <span class="o">=</span> <span class="p">[</span><span class="n">liste_pixel</span><span class="p">[</span><span class="n">position_liste_pixel2</span><span class="p">],</span> <span class="n">liste_pixel</span><span class="p">[</span><span class="n">position_liste_pixel1</span><span class="p">]]</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nbp</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">false_liste</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">false_liste</span><span class="p">)</span>  
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">liste_pixel</span><span class="p">[</span><span class="n">position_liste_pixel1</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">false_liste</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">coord</span> <span class="o">=</span> <span class="n">liste_pixel</span><span class="p">[</span><span class="n">position_liste_pixel1</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Start analyzing&quot;</span><span class="p">,</span> <span class="n">coord</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="delete_pixel_same"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.delete_pixel_same">[docs]</a><span class="k">def</span> <span class="nf">delete_pixel_same</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span> <span class="n">list2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that will remove from list1 all the pixels :class:`Coordinates` from list2.</span>
+<span class="sd">    </span>
+<span class="sd">    :param list1: pixels list</span>
+<span class="sd">    :type list1: list[Coordinates]</span>
+<span class="sd">    :param list2: pixels list</span>
+<span class="sd">    :type list2: list[Coordinates]</span>
+<span class="sd">    :return: a list of all the :class:`Coordinates` of unknown pixels in list2</span>
+<span class="sd">    :rtype: list[Coordinates] </span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">list1</span><span class="p">):</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">coordPx</span> <span class="ow">in</span> <span class="n">list2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">list1</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">stop</span> <span class="o">==</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">list1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">coordPx</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">list1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">coordPx</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">list1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">stop</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Avoid list2 of being once again traveled.</span>
+                <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">list1</span></div>
+
+<div class="viewcode-block" id="photography_zone_comparison"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.photography_zone_comparison">[docs]</a><span class="k">def</span> <span class="nf">photography_zone_comparison</span><span class="p">(</span><span class="n">picture1</span><span class="p">,</span> <span class="n">picture2</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">,</span> <span class="n">list_foreign_pixel</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that &quot;captures&quot; an area of 120 pixel of radius around a point (coord) on an image, then checks all the pixels that don&#39;t belong to the analyzed hypha.</span>
+<span class="sd">    Then, it &quot;captures&quot; the same area on a new image to tell where the pixels that don&#39;t belong to the currently analysed hypha are located (and adds them to list_foreign_pixel).</span>
+<span class="sd">    </span>
+<span class="sd">    :param picture1: an image tuple (skeleton) of the first image to analyze and its name</span>
+<span class="sd">    :type picture1: list[Image, str] </span>
+<span class="sd">    :param picture2: an image tuple (skeleton) of the second image to analyze and its name</span>
+<span class="sd">    :type picture2: list[Image, str]</span>
+<span class="sd">    :param list_pixels: already found pixels :class:`Coordinates` list </span>
+<span class="sd">    :type list_pixels: list[Coordinates]</span>
+<span class="sd">    :param list_foreign_pixel:  :class:`Coordinates` list of a known pixel that don&#39;t belong to the currently analyzed hypha</span>
+<span class="sd">    :type list_foreign_pixel: list[Coordinates]</span>
+<span class="sd">    :param Coordinates coord: :class:`Coordinates` of the pixel to analyze  </span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Salomé Attar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># check the white pixels in a radius of 120 around the coord on the previous image.</span>
+    <span class="n">list_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture1</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+    <span class="c1"># Delete from the list all the pixels are known from the hypha.</span>
+    <span class="n">list_temp</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">list_temp</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">)</span>
+    <span class="c1"># Delete from the list all the known pixels that don&#39;t belong to the hypha.</span>
+    <span class="c1"># list_temp=delete_pixel_same(list_temp,list_foreign_pixel)</span>
+    
+    <span class="c1"># Add the found pixels to list_foreign_pixel.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_temp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">list_temp</span><span class="p">:</span>
+            <span class="n">list_foreign_pixel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ele</span><span class="p">)</span>
+        <span class="c1"># Check all the white pixels on the new image.</span>
+        <span class="n">list_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+    
+        <span class="c1"># Copy list_foreign_pixel to travel it and be able to modify it without having to impact the loop &quot;for&quot;.</span>
+        <span class="n">copy_list_foreign_pixel</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">list_foreign_pixel</span><span class="p">:</span>
+            <span class="n">copy_list_foreign_pixel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ele</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">ele1</span> <span class="ow">in</span> <span class="n">list_temp</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ele2</span> <span class="ow">in</span> <span class="n">copy_list_foreign_pixel</span><span class="p">:</span>
+                <span class="c1"># Check if from those pixels there is some at a (max) 3 pixel radius of distance.</span>
+                <span class="k">if</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">ele2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">ele2</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="c1"># Then we add them to list_foreign_pixel</span>
+                    <span class="n">list_foreign_pixel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ele1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="three_pixels"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.three_pixels">[docs]</a><span class="k">def</span> <span class="nf">three_pixels</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">ray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that compares 2 numbers to see if there&#39;s a gap of 3 or less between them.</span>
+<span class="sd">    </span>
+<span class="sd">    :param int x1: a number to compare</span>
+<span class="sd">    :param int x2: a number to compare  </span>
+<span class="sd">    :param int ray: a size of distance to comppare</span>
+<span class="sd">    :return: True if less than 3 of gap, False otherwise</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">x1</span><span class="o">-</span><span class="n">x2</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">ray</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">x1</span><span class="o">-</span><span class="n">x2</span> <span class="o">&gt;</span> <span class="o">-</span><span class="p">(</span><span class="n">ray</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+    
+<div class="viewcode-block" id="shift_correction"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.shift_correction">[docs]</a><span class="k">def</span> <span class="nf">shift_correction</span><span class="p">(</span><span class="n">picture1</span><span class="p">,</span> <span class="n">picture2</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that allows the rectification of the localisation of the last pixels on the next analyzed image throughout a lag.</span>
+<span class="sd">    </span>
+<span class="sd">    :param picture1: an image tuple (skeleton) of the first to analyze and it&#39;s name</span>
+<span class="sd">    :type picture1: list[Image, str] </span>
+<span class="sd">    :param picture2: an image tuple (skeleton) of the second to analyze and it&#39;s name</span>
+<span class="sd">    :type picture2: list[Image, str]</span>
+<span class="sd">    :param list_pixels: coordinates list of an already found pixel</span>
+<span class="sd">    :type list_pixels: list[Coordinates]</span>
+<span class="sd">    :param Coordinates coord: coordinates of the pixel to analyze</span>
+<span class="sd">    :return: a message stating the start of the analysis, along with the rectified coordinates of start of the analysis </span>
+<span class="sd">    :rtype: (str, Coordinates)</span>
+<span class="sd">   </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ray</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">resultat1</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture1</span> <span class="p">,</span><span class="n">coord</span><span class="p">,</span> <span class="n">ray</span><span class="p">)</span>
+    <span class="n">resultat2</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">ray</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">resultat2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">ray</span> <span class="o">=</span> <span class="mi">7</span>
+        <span class="n">resultat1</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture1</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">ray</span><span class="p">)</span>
+        <span class="n">resultat2</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">ray</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">resultat2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">ray</span> <span class="o">=</span> <span class="mi">9</span>
+            <span class="n">resultat1</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture1</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">ray</span><span class="p">)</span> <span class="c1"># We check all the pixels on a radius of 4 around the coord on picture 1 (11 = 5*2 +1)</span>
+            <span class="n">resultat2</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="n">ray</span><span class="p">)</span> <span class="c1"># We check all the pixels on a radius of 4 around the coord on picture 2</span>
+         
+    <span class="n">nb_pixels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">resultat1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="c1"># It will be the number of pixels to replace on list_pixels.</span>
+    
+    <span class="k">if</span> <span class="n">nb_pixels</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_pixels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">nb_pixels</span><span class="p">:</span>
+        <span class="n">px_bord</span> <span class="o">=</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="n">nb_pixels</span><span class="p">]</span> <span class="c1"># We want the pixel on the edge of the on checkpoint area.</span>
+    <span class="k">else</span><span class="p">:</span>
+       <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Error shift_correction&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">px_start</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">resultat2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">px_bord</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">px_bord</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">px_start</span> <span class="o">=</span> <span class="n">ele</span>
+            <span class="k">break</span>
+    <span class="k">if</span> <span class="n">px_start</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">resultat2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">px_bord</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">px_bord</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">px_start</span><span class="o">=</span><span class="n">ele</span>
+                <span class="k">break</span>
+    <span class="k">if</span> <span class="n">px_start</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">resultat2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">px_bord</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">three_pixels</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">px_bord</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">px_start</span> <span class="o">=</span> <span class="n">ele</span>
+                <span class="k">break</span>
+
+    <span class="k">if</span> <span class="n">px_start</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Not a pixel&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">list_px3</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">px_start</span><span class="p">,</span> <span class="n">ray</span><span class="p">)</span>
+    <span class="n">ele_ok</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">list_px3</span><span class="p">:</span>
+        <span class="n">list_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">ele</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">list_temp</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">list_temp</span><span class="p">,</span> <span class="n">resultat2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_temp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">nb_pixels</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ele</span>
+            <span class="n">ele_ok</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_temp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="n">nb_pixels</span><span class="p">]</span> <span class="o">=</span> <span class="n">ele</span>
+            <span class="n">ele_ok</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">ele_ok</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">nb_pixels</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">list_temp2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">list_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">list_temp</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">list_temp</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">)</span>  
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_temp</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">list_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">list_temp2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+            <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">break</span>
+        <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span> 
+    
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">list_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture2</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">list_temp</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">list_temp</span><span class="p">,</span> <span class="n">list_temp2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_temp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">list_temp2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">list_pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">break</span>
+            
+    <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Start analyzing&quot;</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
+        
+<div class="viewcode-block" id="init_list_pixels"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.init_list_pixels">[docs]</a><span class="k">def</span> <span class="nf">init_list_pixels</span><span class="p">(</span><span class="n">list_pixels</span><span class="p">,</span> <span class="n">picture</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that initializes list_pixel by filling it with the 7 pixels of end that follow the selected apex.</span>
+<span class="sd">    </span>
+<span class="sd">    :param list_pixel: a pixel list</span>
+<span class="sd">    :type list_pixel: list[Coordinates]</span>
+<span class="sd">    :param picture1: an image tuple (skeleton) to analyze and its name</span>
+<span class="sd">    :type picture1: list[Image, str]</span>
+<span class="sd">    :param Coordinates coord: :class:`Coordinates` of a white pixel </span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># We look in a radius of 10 around the selected point.</span>
+    <span class="n">list_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">px</span> <span class="ow">in</span> <span class="n">list_temp</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">check_point</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="n">px</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="n">list_pixels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">px</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="n">list_pixel_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">i</span><span class="p">)],</span> <span class="mi">3</span><span class="p">)</span>
+                <span class="n">list_pixel_temp</span> <span class="o">=</span> <span class="n">delete_pixel_same</span><span class="p">(</span><span class="n">list_pixel_temp</span><span class="p">,</span> <span class="n">list_pixels</span><span class="p">)</span>
+                <span class="n">list_pixels</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">list_pixel_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">break</span></div>
+
+<div class="viewcode-block" id="is_apex"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.is_apex">[docs]</a><span class="k">def</span> <span class="nf">is_apex</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method that determines if the selected :class:`Coordinates` are those of an apex. </span>
+<span class="sd">    </span>
+<span class="sd">    :param picture1: an image tuple (skeleton) of the first image to analyze and its name</span>
+<span class="sd">    :type picture1: list[Image, str]</span>
+<span class="sd">    :param Coordinates coord: :class:`Coordinates` of a pixel  </span>
+<span class="sd">    :return: a boolean precising if there is an apex on the selected point, and the real point of the apex. </span>
+<span class="sd">    :rtype: (bool, str)</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># We check in a radius of 10 around the selected point.</span>
+    <span class="n">list_temp</span> <span class="o">=</span> <span class="n">check_point</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">coord</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+    
+    <span class="c1"># If the list is empty, no white pixel so no apex.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">list_temp</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="c1"># Otherwise, we travel list_temp and look in a radius of 1 for each point. </span>
+    <span class="c1"># If there is only 2 white pixels, then we know that it is an apex for sure and we return its coordinates to start the analysis. </span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">px</span> <span class="ow">in</span> <span class="n">list_temp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">check_point</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">px</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="calculated_size"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.calculated_size">[docs]</a><span class="k">def</span> <span class="nf">calculated_size</span><span class="p">(</span><span class="n">segment</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     Method that calculates the size of a :class:`HyphaSegment` (itself containing several :class:`HyphaSegment`).</span>
+<span class="sd">     </span>
+<span class="sd">     :param HyphaSegment segment: one HyphaSegment     </span>
+<span class="sd">     :return: the size of the segment (in pixels)</span>
+<span class="sd">     :rtype: int</span>
+<span class="sd">     </span>
+<span class="sd">     .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">     &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">segment</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Error, the segment is void&quot;</span>
+    
+    <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">segment</span><span class="o">.</span><span class="n">evolution</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">ele</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span> <span class="ow">or</span> <span class="n">ele</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">size</span> <span class="o">+=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">size</span> <span class="o">+=</span> <span class="n">ele</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">size</span></div>
+    
+<div class="viewcode-block" id="apex_path_verification"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#AI.apex_path_verification">[docs]</a><span class="k">def</span> <span class="nf">apex_path_verification</span><span class="p">(</span><span class="n">coord1</span><span class="p">,</span> <span class="n">segment</span><span class="p">):</span>
+     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     Method that defines whether the apex identified on the image matches the trajectory of the apex on the previous image.</span>
+<span class="sd">     </span>
+<span class="sd">     :param Coordinates coord: :class:`Coordinates` of the followed apex</span>
+<span class="sd">     :param HyphaSegment segment: the last :class:`HyphaSegment` saved     </span>
+<span class="sd">     :return: a boolean indicating if this is the right apex that was followed</span>
+<span class="sd">     :rtype: bool</span>
+<span class="sd">     </span>
+<span class="sd">     .. codeauthor:: Salomé Attar</span>
+<span class="sd">     &quot;&quot;&quot;</span>
+     
+     <span class="c1"># The model of evolution of the hyphae being imprivisible I consider that it is indeed the same apex if it is &#39;not far&#39; from the vector.</span>
+     <span class="c1"># Which mean in a triangle that revolves around the vector.</span>
+     
+     <span class="c1"># A vector is composed of two points.</span>
+     <span class="c1"># I consider my vector as the segment shift from itself.</span>
+     <span class="n">vect_pt1</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span> <span class="n">msh</span><span class="o">.</span><span class="n">Coordinates</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+     <span class="n">vect_pt2</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        
+     <span class="c1"># In an arbitrary way I consider that the apex of the current image corresponds to the apex followed.</span>
+     <span class="c1"># if it&#39;s in the triangle, more or less 1/4 away from the Vector.</span>
+     <span class="n">x</span> <span class="o">=</span> <span class="n">coord1</span><span class="o">.</span><span class="n">coordX</span>
+     <span class="n">y</span> <span class="o">=</span> <span class="n">coord1</span><span class="o">.</span><span class="n">coordY</span>
+   
+     <span class="k">return</span> <span class="p">((</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">math</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">vect_pt2</span><span class="o">.</span><span class="n">coordX</span> <span class="o">-</span> <span class="n">vect_pt1</span><span class="o">.</span><span class="n">coordX</span><span class="p">))</span><span class="ow">and</span><span class="p">(</span><span class="n">y</span><span class="o">&lt;=</span> <span class="n">math</span><span class="o">.</span><span class="n">fabs</span><span class="p">((</span><span class="n">vect_pt2</span><span class="o">.</span><span class="n">coordY</span><span class="o">*</span><span class="mf">1.25</span><span class="p">)</span> <span class="o">-</span> <span class="n">vect_pt1</span><span class="o">.</span><span class="n">coordY</span><span class="p">)))</span></div>
+       
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Salomé Attar, Bouthayna Haltout, Sébastien Maillos, Laura Xénard
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

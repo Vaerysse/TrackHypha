@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documentation technique &mdash; Documentation TrackHypha / SkelHypha 1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="prev" title="Documentation utilisateur" href="5_SkelHypha_UserDoc.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> TrackHypha / SkelHypha
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table des matières</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1_TrackHypha.html">TrackHypha</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="4_SkelHypha.html">SkelHypha</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="5_SkelHypha_UserDoc.html">Documentation utilisateur</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Documentation technique</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TrackHypha / SkelHypha</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="4_SkelHypha.html">SkelHypha</a> &raquo;</li>
+        
+      <li>Documentation technique</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/6_SkelHypha_TechDoc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-SkelHypha">
+<span id="documentation-technique"></span><h1>Documentation technique<a class="headerlink" href="#module-SkelHypha" title="Lien permanent vers ce titre">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Notes:</th><td class="field-body"><p class="first">This script has been tested with the following dependencies 
+(other versions may work):</p>
+<blockquote>
+<div><ul class="simple">
+<li>Python 3.6.8, 3.7.2 and 3.7.3</li>
+<li>numpy 1.16.2 and 1.16.3</li>
+<li>skimage (scikit-image) 0.14.2 and 0.15.0</li>
+<li>tifffile 0.15.1 and 2019.3.18</li>
+</ul>
+</div></blockquote>
+<p class="last">If the program takes several minutes to compute the skeleton of the slice 0 
+of the first image, check that the matrix of the binarized image is of type 
+uint8 with the background at 0 value (not 255!). If it’s at 255, try 
+switching on/off the line 114 which inverts the image.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="SkelHypha.createOutputFolder">
+<code class="descclassname">SkelHypha.</code><code class="descname">createOutputFolder</code><span class="sig-paren">(</span><em>folder_in</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SkelHypha.html#createOutputFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SkelHypha.createOutputFolder" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Create the output directory that will hold the skeleton images and the log file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>folder_in</strong> (<em>str</em>) – the path of the directory containing the images to skeletonized</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">the path that will hold the skeleton images and the path of the log file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">(str, str)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SkelHypha.createSubImages">
+<code class="descclassname">SkelHypha.</code><code class="descname">createSubImages</code><span class="sig-paren">(</span><em>slices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SkelHypha.html#createSubImages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SkelHypha.createSubImages" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Create 25 subimages made of 3x3 slices. The skeleton will be computed on 3x3 slices, 
+but only the core slice will be kept for the final skeleton (to avoid skeleton errors when at the border of an image).
+Completely black slices (void) are added when necessary to create a 3x3 slices for each previously created slice.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>slices</strong> (<em>list</em><em>[</em><em>np.ndarray</em><em>]</em>) – the slices that will be used to create the subimages</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">a list of the subimages created and the processing time of the computing</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">(list[np.ndarray], int)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SkelHypha.isTif">
+<code class="descclassname">SkelHypha.</code><code class="descname">isTif</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SkelHypha.html#isTif"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SkelHypha.isTif" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Checks that the element of path “path” is a tif/tiff image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – the path of a file/directory</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">True if it’s a tif/tiff, False otherwise</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SkelHypha.loadImg">
+<code class="descclassname">SkelHypha.</code><code class="descname">loadImg</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SkelHypha.html#loadImg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SkelHypha.loadImg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Load an image and convert it to the correct format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – the path of the image to load and convert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">the converted image</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">np.ndarray</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SkelHypha.reconstructSkel">
+<code class="descclassname">SkelHypha.</code><code class="descname">reconstructSkel</code><span class="sig-paren">(</span><em>skels</em>, <em>img</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SkelHypha.html#reconstructSkel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SkelHypha.reconstructSkel" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Reconstruct the skeleton image by concatenating the core slice of every subimage.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><ul class="first simple">
+<li><strong>skels</strong> (<em>list</em><em>[</em><em>np.ndarray</em><em>]</em>) – the list of the skeletonized subimages</li>
+<li><strong>img</strong> (<em>np.ndarray</em>) – the original image</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body"><p class="first">the final image and the processing time of the reconstruction</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body"><p class="first last">(np.ndarray, int)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SkelHypha.skeletonizeSubimages">
+<code class="descclassname">SkelHypha.</code><code class="descname">skeletonizeSubimages</code><span class="sig-paren">(</span><em>subimages</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SkelHypha.html#skeletonizeSubimages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SkelHypha.skeletonizeSubimages" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Apply a skeletonization (morphological thinning) on every subimage of the list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>subimages</strong> (<em>list</em><em>[</em><em>np.ndarray</em><em>]</em>) – the list of the subimages to skeletonize</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">the list of the skeletonized subimages and the processing time of the skeletonization</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">(list[np.ndarray], int)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SkelHypha.sliceImg">
+<code class="descclassname">SkelHypha.</code><code class="descname">sliceImg</code><span class="sig-paren">(</span><em>img</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SkelHypha.html#sliceImg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SkelHypha.sliceImg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Divide the image in 25 slices of nearly identical size.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramètres:</th><td class="field-body"><strong>img</strong> (<em>np.ndarray</em>) – the image to be sliced</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Renvoie:</th><td class="field-body">the list of slices and the processing time of the slicing</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type renvoyé:</th><td class="field-body">(list[np.ndarray], int)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="5_SkelHypha_UserDoc.html" class="btn btn-neutral float-left" title="Documentation utilisateur" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Salomé Attar, Bouthayna Haltout, Sébastien Maillos, Laura Xénard
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

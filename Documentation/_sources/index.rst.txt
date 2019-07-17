@@ -1,0 +1,38 @@
+******************************************************
+Croissance des hyphes de champignons : suivi d'un apex
+******************************************************
+
+Introduction
+************
+
+Ce site regroupe les documentations utilisateur et technique de deux outils développés par les étudiants du groupe L3V1, 
+Salomé Attar, Bouthayna Haltout, Sébastien Maillos et Laura Xénard, dans le cadre de leur projet de Licence 3 en Informatique à Paris Descartes. 
+Ce projet a été encadré par Mme Florence Leclerc, biologiste et maître de conférences HDR à l'université Paris Descartes (Paris 5) 
+et par M. Éric Herbert, physicien et également maître de conférences à l'université Paris Diderot (Paris 7).
+
+L'objectif de ces deux outils est de suivre l'évolution d'un apex de champignon et de l'ensemble de ses branches 
+sur une succession de photographies prises au microscope, afin de recueillir un ensemble de données. 
+Ces données extraites vont ainsi permettre l'étude de la croissance spatiale et temporelle d'un champignon.
+
+Le premier outil, nommé :ref:`TrackHypha <trackhypha>`, est une application facilitant la visualisation des étapes de croissance d'une hyphe à partir d'un apex sélectionné par l'utilisateur, 
+et extrayant des données relatives à la croissance de l'hyphe comme son nombre de nœuds, sa taille ou encore sa vitesse de croissance.
+
+Le second outil, appelé :ref:`SkelHypha <skelhypha>`, permet  quant à lui de squelettiser des images de réseaux complexes, tels que ceux créés par le champignon *Podospora anserina* lors de sa croissance. 
+En effet, les outils conventionnels de squelettisation, comme ceux proposé par les bibliothèques de traitements d'images Python (`OpenCV <https://opencv.org/>`_, 
+`scikit-image <https://scikit-image.org/>`_) ou par les logiciels `ImageJ <https://imagej.nih.gov/ij/>`_/`Fiji <https://fiji.sc/>`_ rendent un résultat incorrect sur les réseaux trop complexes.
+
+Ces deux outils sont distribués sous licence `GPL v3 <https://www.gnu.org/licenses/gpl-3.0.en.html>`_.
+
+.. figure:: _static/structure.png
+    :align: center
+    :alt: Image en niveau de gris représentant le réseau complexe formé par un champignon.
+    :figclass: align-center
+
+    A gauche, panorama d'un mycélium du champignon *Podospora anserina* vu au microscope. A droite, zoom sur le mycélium.
+
+.. toctree::
+	:caption: Table des matières 
+	:maxdepth: 3 
+
+	1_TrackHypha		
+	4_SkelHypha

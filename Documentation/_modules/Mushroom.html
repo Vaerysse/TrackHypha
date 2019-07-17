@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mushroom &mdash; Documentation TrackHypha / SkelHypha 1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TrackHypha / SkelHypha
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table des matières</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1_TrackHypha.html">TrackHypha</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_SkelHypha.html">SkelHypha</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TrackHypha / SkelHypha</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Code du module</a> &raquo;</li>
+        
+      <li>Mushroom</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de Mushroom</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#=============================================================================</span>
+<span class="c1">#     This module is part of TrackHypha, an application that analyzes the </span>
+<span class="c1">#     filamentous network of a mushroom by following one of its apex. </span>
+<span class="c1">#     Copyright (C)  2019  Salomé Attar, </span>
+<span class="c1">#                          Bouthayna Haltout, </span>
+<span class="c1">#                          Sébastien Maillos, </span>
+<span class="c1">#                          Laura Xénard</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#     it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#     (at your option) any later version.</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1">#     GNU General Public License for more details.</span>
+<span class="c1"># </span>
+<span class="c1">#     You should have received a copy of the GNU General Public License</span>
+<span class="c1">#     along with this program. If not, see https://www.gnu.org/licenses/.</span>
+<span class="c1"># =============================================================================</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:Synopsis: </span>
+<span class="sd">    This module represents and manages the structure of the mycelium extracted from a data set throught these 5 classes:</span>
+<span class="sd">    </span>
+<span class="sd">        * Coordinates</span>
+<span class="sd">        * HyphaSegment</span>
+<span class="sd">        * Analysis</span>
+<span class="sd">        * Project </span>
+
+<span class="sd">.. moduleauthor:: Sébastien Maillos</span>
+<span class="sd">.. moduleauthor:: Laura Xénard</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+
+<div class="viewcode-block" id="Coordinates"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Mushroom.Coordinates">[docs]</a><span class="k">class</span> <span class="nc">Coordinates</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Class representing the Cartesian coordinates of a point in the plane.</span>
+<span class="sd">    </span>
+<span class="sd">    :param int coordX: the point abscissa</span>
+<span class="sd">    :param int coordY: the point ordinate</span>
+<span class="sd">        </span>
+<span class="sd">    .. codeauthor:: Laura Xénard</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordX</span><span class="p">,</span> <span class="n">coordY</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class constructor.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">coordX</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">coordY</span>
+        
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Magic method for displaying the coordinates as (x, y).</span>
+<span class="sd">        </span>
+<span class="sd">        :return: the string representation of a &#39;Coordinates&#39; object</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">return</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+    
+    
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coord</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Overload of the addition for 2 :class:`Coordinates` objects.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: the :class:`Coordinates` sum of the 2 Coordinates</span>
+<span class="sd">        :rtype: Coordinates</span>
+<span class="sd">            </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">xresult</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">coord</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">yresult</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">coord</span><span class="o">.</span><span class="n">y</span>
+        <span class="k">return</span> <span class="n">Coordinates</span><span class="p">(</span><span class="n">xresult</span><span class="p">,</span> <span class="n">yresult</span><span class="p">)</span></div>
+        
+        
+<div class="viewcode-block" id="HyphaSegment"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Mushroom.HyphaSegment">[docs]</a><span class="k">class</span> <span class="nc">HyphaSegment</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class representing a hypha segment which is the section of the hypha comprised between two nodes or between a node and an apex.</span>
+<span class="sd">        </span>
+<span class="sd">    :param int id: the id of the segment</span>
+<span class="sd">    :param int previous: the id of the previous segment</span>
+<span class="sd">    :param bool deadEnd: True if the segment is the last one of the hypha, False otherwise</span>
+<span class="sd">    :param coord: the start and end :class:`Coordinates` of the segment</span>
+<span class="sd">    :type coord: list[Coordinates]</span>
+<span class="sd">    :param evolution: a dictionary of the evolution steps of the segment, linking the relevant image with the segment apex :class:`Coordinates` and its length</span>
+<span class="sd">    :type evolution: dict{int : [Coordinates, int]}  </span>
+<span class="sd">    :param int size: size of the hypha segment in pixel </span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Laura Xénard</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">segmentCount</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># we start at 1</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">previousID</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">HyphaSegment</span><span class="o">.</span><span class="n">segmentCount</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous</span> <span class="o">=</span> <span class="n">previousID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deadEnd</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coord</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evolution</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="Analysis"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Mushroom.Analysis">[docs]</a><span class="k">class</span> <span class="nc">Analysis</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class representing an analysis run on an image dataset in fonction of the user&#39;s parameters.</span>
+<span class="sd">        </span>
+<span class="sd">    :param int id: the id of the analysis</span>
+<span class="sd">    :param Coordinates startApex: the :class:`Coordinates` of the apex chosen as the starting point of the analysis</span>
+<span class="sd">    :param int startImg: the index of the start image of the analysis</span>
+<span class="sd">    :param int endImg: the index of the end image of the analysis</span>
+<span class="sd">    :param steps: a dictionary of the analysis steps, linking the step index with the :class:`Coordinates` of the followed apex and the index of the corresponding image</span>
+<span class="sd">    :type steps: dict{int : [Coordinates, int]}</span>
+<span class="sd">    :param Image finalImg: an image showing the hyphae that have been explored by the analysis</span>
+<span class="sd">    :param Image stepImg: an image showing the position of the explored apex for the current step</span>
+<span class="sd">    :param int currentStep: the step currently being displayed</span>
+<span class="sd">    :param int previousStepDisplayed: the step previously being displayed</span>
+<span class="sd">    :param segments: a list of all the :class:`HyphaSegment` created by the analysis</span>
+<span class="sd">    :type segments: list[HyphaSegment]</span>
+<span class="sd">    :param hyphae: a hyphae dictionary linkink each hypha with the id of its segments</span>
+<span class="sd">    :type hyphae: dict{int : list[int]}</span>
+<span class="sd">    :param list_pixels: a list of :class:`Coordinates` of the hyphae pixels</span>
+<span class="sd">    :type list_pixels: list[Coordinates]</span>
+<span class="sd">    :param int processingTime: the processing time of the analysis</span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Laura Xénard</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">analysisCount</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># we start at 1</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">startApex</span><span class="p">,</span> <span class="n">startImg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class constructor.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">Analysis</span><span class="o">.</span><span class="n">analysisCount</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">startApex</span> <span class="o">=</span> <span class="n">startApex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">startImg</span> <span class="o">=</span> <span class="n">startImg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endImg</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">steps</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finalImg</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stepImg</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currentStep</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previousStepDisplayed</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segments</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hyphae</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_pixels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">processing_time</span> <span class="o">=</span> <span class="mi">0</span> </div>
+
+
+<div class="viewcode-block" id="Project"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Mushroom.Project">[docs]</a><span class="k">class</span> <span class="nc">Project</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class holding the project data.</span>
+<span class="sd">       </span>
+<span class="sd">    :param int id: the id of the project</span>
+<span class="sd">    :param str path: the path to the project environment (directory)</span>
+<span class="sd">    :param skelPics: a sorted list of tuples (img, img name) of skeleton images to analyze</span>
+<span class="sd">    :type skelPics: list[(Image, str)]</span>
+<span class="sd">    :param greyPics: a sorted list of tuples (img, img name) of greyscale images to display in the UI</span>
+<span class="sd">    :type greyPics: list[(Image, str)]</span>
+<span class="sd">    :param int currentImg: the index of the image currently being displayed</span>
+<span class="sd">    :param int previousImgDisplayed: the index of the image previously being displayed</span>
+<span class="sd">    :param str notes: notes on the analysis (the notes will be exported)</span>
+<span class="sd">    :param Analysis analysis: the :class:`Analysis` object holding the analysis data    </span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">    .. codeauthor:: Laura Xénard</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">projectCount</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="c1"># we start at 1</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class constructor.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Sébastien Maillos</span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">Project</span><span class="o">.</span><span class="n">projectCount</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skelPics</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># list (Image, skelName)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">greyPics</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># list (Image, greyName)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currentImg</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># we initialize at the first image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previousImgDisplayed</span> <span class="o">=</span> <span class="mi">0</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">notes</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analysis</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># we wait for startImg, endImg and startApex</span>
+
+        
+<div class="viewcode-block" id="Project.clear"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#Mushroom.Project.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reinitiating the project so that a new analysis can be run on the same set of images. </span>
+<span class="sd">        The notes written at the previous analysis are being kept but can be changed during the export.</span>
+<span class="sd">        </span>
+<span class="sd">        :raise AttributeError: if there is no attribute :attr:`Analysis` for the current :class:`Project`</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">analysis</span> <span class="c1"># we destroy the previous analysis</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;INFORMATION: no analysis attribute for this Project instance.&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Salomé Attar, Bouthayna Haltout, Sébastien Maillos, Laura Xénard
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,854 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MainWindow &mdash; Documentation TrackHypha / SkelHypha 1.0</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TrackHypha / SkelHypha
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table des matières</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1_TrackHypha.html">TrackHypha</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_SkelHypha.html">SkelHypha</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TrackHypha / SkelHypha</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Code du module</a> &raquo;</li>
+        
+      <li>MainWindow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de MainWindow</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1">#     This module is part of TrackHypha, an application that analyzes the </span>
+<span class="c1">#     filamentous network of a mushroom by following one of its apex. </span>
+<span class="c1">#     Copyright (C)  2019  Salomé Attar, </span>
+<span class="c1">#                          Bouthayna Haltout, </span>
+<span class="c1">#                          Sébastien Maillos, </span>
+<span class="c1">#                          Laura Xénard</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#     it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#     (at your option) any later version.</span>
+<span class="c1"># </span>
+<span class="c1">#     This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1">#     GNU General Public License for more details.</span>
+<span class="c1"># </span>
+<span class="c1">#     You should have received a copy of the GNU General Public License</span>
+<span class="c1">#     along with this program. If not, see https://www.gnu.org/licenses/.</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="c1"># =============================================================================</span>
+<span class="c1">#     This sites helped write the code below: </span>
+<span class="c1">#    </span>
+<span class="c1">#    *https://stackoverflow.com/questions/43569167/pyqt5-resize-label-to-fill-the-whole-window</span>
+<span class="c1">#    *http://zetcode.com/gui/pyqt5/widgets2/</span>
+<span class="c1">#    *https://github.com/xinntao/HandyViewer/blob/master/HandyViewer.py</span>
+<span class="c1"># =============================================================================</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:Synopsis: </span>
+<span class="sd">    This module represents and manages the structure of the Main window seen by the user. </span>
+<span class="sd">    This module contains three classes: </span>
+<span class="sd">        </span>
+<span class="sd">        * MouseTracker</span>
+<span class="sd">        * MainWindow</span>
+<span class="sd">        * TaskBar</span>
+<span class="sd">    </span>
+<span class="sd">    It is the User Interface module of the application: </span>
+<span class="sd">    it links itself to the :mod:`Management` module that is linked to all the other modules.</span>
+
+<span class="sd">.. moduleauthor:: Haltout Bouthayna</span>
+<span class="sd">&quot;&quot;&quot;</span>
+ 
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="k">import</span> <span class="p">(</span><span class="n">QDialog</span><span class="p">,</span> <span class="n">QApplication</span><span class="p">,</span> <span class="n">QMainWindow</span><span class="p">,</span> <span class="n">QProgressBar</span><span class="p">,</span> <span class="n">QStatusBar</span><span class="p">,</span> 
+                             <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QLabel</span><span class="p">,</span> <span class="n">QScrollArea</span><span class="p">,</span> <span class="n">QInputDialog</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="p">,</span> <span class="n">QLineEdit</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtGui</span> <span class="k">import</span> <span class="n">QPalette</span><span class="p">,</span> <span class="n">QPixmap</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="k">import</span> <span class="n">QThread</span><span class="p">,</span> <span class="n">pyqtSignal</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">ImageQt</span>
+
+<span class="kn">from</span> <span class="nn">Notes</span> <span class="k">import</span> <span class="n">Ui_Dialog</span> <span class="k">as</span> <span class="n">Form</span>
+<span class="kn">import</span> <span class="nn">Ui</span>
+<span class="kn">import</span> <span class="nn">Management</span>
+<span class="kn">import</span> <span class="nn">Mushroom</span>
+
+
+<div class="viewcode-block" id="MouseTracker"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MouseTracker">[docs]</a><span class="k">class</span> <span class="nc">MouseTracker</span><span class="p">(</span><span class="n">QLabel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class adding a mouse position tracker to a QLabel. </span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Laura Xénard       </span>
+<span class="sd">    .. codeauthor:: Bouthayna Haltout   </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class constructor.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setMouseTracking</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># activates only when an image is displayed</span>
+        
+<div class="viewcode-block" id="MouseTracker.mouseMoveEvent"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MouseTracker.mouseMoveEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseMoveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Event method that tracks the mouse position in the QLabel and displays it.</span>
+<span class="sd">        </span>
+<span class="sd">        :param event: the detected event</span>
+<span class="sd">        :type event: PyQt5.QtGui.QMouseEvent</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">xImg</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">/</span> <span class="n">MainWindow</span><span class="o">.</span><span class="n">scaleFactor</span><span class="p">)</span> <span class="c1"># Real mouse abscissa position in the image.</span>
+        <span class="n">yImg</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">/</span> <span class="n">MainWindow</span><span class="o">.</span><span class="n">scaleFactor</span><span class="p">)</span> <span class="c1"># Real mouse ordinate position in the image.          </span>
+        <span class="n">MainWindow</span><span class="o">.</span><span class="n">mouseCoordinates</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;(</span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xImg</span><span class="p">,</span> <span class="n">yImg</span><span class="p">))</span> <span class="c1"># Display the mouse position in the status bar.</span></div>
+            
+<div class="viewcode-block" id="MouseTracker.mousePressEvent"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MouseTracker.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Event method that handle the mouse pressing event.</span>
+<span class="sd">        </span>
+<span class="sd">        :param event: the detected event</span>
+<span class="sd">        :type event: PyQt5.QtGui.QMouseEvent</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="n">MainWindow</span><span class="o">.</span><span class="n">apexS</span><span class="p">:</span><span class="c1"># If apexS in MainWindow == True, we look at the mousePressEvent, and get the position of the click in the image.          </span>
+            <span class="n">MainWindow</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">/</span> <span class="n">MainWindow</span><span class="o">.</span><span class="n">scaleFactor</span><span class="p">)</span> <span class="c1"># Real mouse abscissa position in the image.</span>
+            <span class="n">MainWindow</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">/</span> <span class="n">MainWindow</span><span class="o">.</span><span class="n">scaleFactor</span><span class="p">)</span> <span class="c1"># Real mouse ordinate position in the image.</span>
+            <span class="n">MainWindow</span><span class="o">.</span><span class="n">checkApex</span><span class="p">()</span><span class="c1"># We launch the method checkApex() when the apexS == True. </span></div></div>
+
+
+<div class="viewcode-block" id="MainWindow"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow">[docs]</a><span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QMainWindow</span><span class="p">):</span>  
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main class displaying the MainWindow of the project. </span>
+<span class="sd">    </span>
+<span class="sd">    .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class constructor.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="nb">super</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span> <span class="o">=</span> <span class="n">Ui</span><span class="o">.</span><span class="n">Ui_MainWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manage</span> <span class="o">=</span> <span class="n">Management</span><span class="o">.</span><span class="n">Mana</span><span class="p">()</span> 
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span> <span class="o">=</span> <span class="mf">1.0</span>   
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitScaleFactor</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># Setting x and y to -1, as long as the coordinates of the apex are not chosen. </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apexS</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># We set it to false to desactivate the choice of the apex.</span>
+
+   
+        <span class="c1"># Connecting the menu items to their respective functions.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">actionNew</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">actionSave</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">actionOpen</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">actionExport</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">actionClose</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">)</span>
+ 
+        <span class="c1">## Connecting each action of the Toolbar to the its function ##</span>
+     
+        <span class="c1"># We connect the icons to the assigned functions.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">playAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">play</span><span class="p">)</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">fitToWindowAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scaleToFit</span><span class="p">)</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">zoominAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zoomIn</span><span class="p">)</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">zoomoutAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zoomOut</span><span class="p">)</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">truesizeAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trueSize</span><span class="p">)</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">nextAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nextImg</span><span class="p">)</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">previousAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previousImg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">nextAnalyseAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nextAnalysisImg</span><span class="p">)</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">previousAnalysisAction</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previousAnalysisImg</span><span class="p">)</span>
+        
+        <span class="c1"># titleAfterAnalysis and titleBeforeAnalysis showing the total number of images before and after the analysis.   </span>
+        <span class="n">titleAfterAnalysis</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Steps Navigation&quot;</span><span class="p">)</span><span class="c1">#ou analysis</span>
+        <span class="n">titleBeforeAnalysis</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Images Navigation&quot;</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfImg</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot; / 0&quot;</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfStep</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot; / 0&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Connecting the QLineEdit to the pushOk functions allowing the user to go to the desired image.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numberImg</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numberImg</span><span class="o">.</span><span class="n">setFixedWidth</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numberImg</span><span class="o">.</span><span class="n">returnPressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pushOkImg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numberStep</span> <span class="o">=</span> <span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numberStep</span><span class="o">.</span><span class="n">setFixedWidth</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numberStep</span><span class="o">.</span><span class="n">returnPressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pushOkStep</span><span class="p">)</span>
+        
+        <span class="c1"># Creating and connecting a QprogressBar that will allow the user to know that the analysis is running.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span> <span class="o">=</span> <span class="n">QProgressBar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+ 
+        <span class="c1"># Creating the toolBar and adding all the widgets to it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">addToolBar</span><span class="p">(</span><span class="s2">&quot;Options&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">titleBeforeAnalysis</span><span class="p">)</span>      
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">previousAction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberImg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfImg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">nextAction</span><span class="p">)</span>         
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>      
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">playAction</span><span class="p">)</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">fitToWindowAction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">zoomoutAction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">truesizeAction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">zoominAction</span><span class="p">)</span>             
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">titleAfterAnalysis</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">previousAnalysisAction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberStep</span><span class="p">)</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfStep</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">nextAnalyseAction</span><span class="p">)</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>       
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="p">)</span>         
+        <span class="bp">self</span><span class="o">.</span><span class="n">addToolBarBreak</span><span class="p">()</span>
+        
+        <span class="c1">## Image area and scroll area ##</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span> <span class="o">=</span> <span class="n">MouseTracker</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">width</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">height</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span>
+        
+        <span class="c1"># Sets the scroll area where the images are going to be opened. </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span> <span class="o">=</span> <span class="n">QScrollArea</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setBackgroundRole</span><span class="p">(</span><span class="n">QPalette</span><span class="o">.</span><span class="n">Dark</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="p">)</span>
+        
+        <span class="c1"># Setting the Status bar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span> <span class="o">=</span> <span class="n">QStatusBar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setStatusBar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statusMessage</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Please create or open a project.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">statusMessage</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mouseCoordinates</span> <span class="o">=</span> <span class="n">QLabel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statusBar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mouseCoordinates</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        
+        <span class="c1"># Connecting the progressBar to the function confirm that will update the Value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myLongTask</span> <span class="o">=</span> <span class="n">TaskBar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myLongTask</span><span class="o">.</span><span class="n">taskFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">confirm</span><span class="p">)</span>
+        
+    <span class="c1">## Project methods ## </span>
+       
+<div class="viewcode-block" id="MainWindow.new"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.new">[docs]</a>    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Initializes path as a path directory and sends it to the :mod:`Management` module that then gets the set of data in the directory. </span>
+<span class="sd">        It then displays the GreyImages returned by the :mod:`Management` module. And sets the statusBar and the total number of steps and images of the project.  </span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Directory Selection&quot;</span><span class="p">))</span> <span class="c1"># Get the path directory as a string.</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">boole</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">new_project</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="c1"># Sends the path to Management.</span>
+            <span class="k">if</span> <span class="n">boole</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fitScaleFactor</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span> <span class="o">=</span> <span class="n">MouseTracker</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">width</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">height</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">setMouseTracking</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># activates the mouse position tracking on the image.       </span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">displayImgGrey</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">statusMessage</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Select the parameters for the analysis.&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fitToWindow</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfStep</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot; / 0&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfImg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot; / </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">)))</span><span class="c1"># Sets the total number of images before the analysis.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span></div>
+  
+<div class="viewcode-block" id="MainWindow.open"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.open">[docs]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Initializes the fileName as the file name of the path of a pre-existing project, that the user wants to open. It then sends it to :mod:`Management` module.</span>
+<span class="sd">        After that, it displays the redImages, sets the satusBar and the total number of steps and images of the project.  </span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">fileName</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Project Selection&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;All Files (*)&quot;</span><span class="p">)</span> <span class="c1"># Get the name of the file to open.</span>
+        <span class="k">if</span> <span class="n">fileName</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">boole</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">load_project</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span> <span class="c1"># Sends the fileName to Management.</span>
+            <span class="k">if</span> <span class="n">boole</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fitScaleFactor</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span> <span class="o">=</span> <span class="n">MouseTracker</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">width</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">height</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MainUi</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span>            
+                <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">setMouseTracking</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># activate the mouse position tracking on the image        </span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">displayImgRed</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">statusMessage</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fitToWindow</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfStep</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot; / </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">)))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfImg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot; / </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">)))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span></div>
+      
+<div class="viewcode-block" id="MainWindow.zoomIn"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.zoomIn">[docs]</a>    <span class="k">def</span> <span class="nf">zoomIn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zooms in the image of 15%.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaleImage</span><span class="p">(</span><span class="mf">1.15</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="MainWindow.zoomOut"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.zoomOut">[docs]</a>    <span class="k">def</span> <span class="nf">zoomOut</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Zooms out the image of 15%.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaleImage</span><span class="p">(</span><span class="mf">0.85</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="MainWindow.trueSize"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.trueSize">[docs]</a>    <span class="k">def</span> <span class="nf">trueSize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Re-scales the image to its true size.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">adjustSize</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span> <span class="o">=</span> <span class="mf">1.0</span></div>
+    
+<div class="viewcode-block" id="MainWindow.fitToWindow"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.fitToWindow">[docs]</a>    <span class="k">def</span> <span class="nf">fitToWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scales the image to fit the window.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">height</span><span class="p">())</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">width</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">width</span><span class="p">():</span>
+                <span class="n">label_height_resized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+                <span class="n">label_width_resized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">label_height_resized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+                <span class="n">label_width_resized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">label_width_resized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+            <span class="n">label_height_resized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+         
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">label_width_resized</span><span class="p">,</span> <span class="n">label_height_resized</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">setScaledContents</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">computeFitToWindowScaleFactor</span><span class="p">()</span>   </div>
+    
+<div class="viewcode-block" id="MainWindow.scaleToFit"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.scaleToFit">[docs]</a>    <span class="k">def</span> <span class="nf">scaleToFit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scales the image to fit the window.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitScaleFactor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">pixmap</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjustScrollBar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">horizontalScrollBar</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitScaleFactor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjustScrollBar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitScaleFactor</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="MainWindow.scaleImage"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.scaleImage">[docs]</a>    <span class="k">def</span> <span class="nf">scaleImage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scales the image.</span>
+<span class="sd">        </span>
+<span class="sd">        :param float factor: the zoom factor</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span> <span class="o">*=</span> <span class="n">factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">pixmap</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+    
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjustScrollBar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">horizontalScrollBar</span><span class="p">(),</span> <span class="n">factor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjustScrollBar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">verticalScrollBar</span><span class="p">(),</span> <span class="n">factor</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="MainWindow.computeFitToWindowScaleFactor"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.computeFitToWindowScaleFactor">[docs]</a>    <span class="k">def</span> <span class="nf">computeFitToWindowScaleFactor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the scale factor needed to fit an image to the window.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Laura Xénard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">widthScaleFactor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> 
+        <span class="n">heightScaleFactor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span> <span class="o">=</span>  <span class="p">(</span><span class="n">widthScaleFactor</span> <span class="o">+</span> <span class="n">heightScaleFactor</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitScaleFactor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaleFactor</span></div>
+    
+<div class="viewcode-block" id="MainWindow.adjustScrollBar"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.adjustScrollBar">[docs]</a>    <span class="k">def</span> <span class="nf">adjustScrollBar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scrollBar</span><span class="p">,</span> <span class="n">factor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjusts the scroll bar.</span>
+<span class="sd">        </span>
+<span class="sd">        :param scrollBar: the scrollbar to adjust</span>
+<span class="sd">        :type scrollBar: PyQt5.QtWidgets.QScrollBar</span>
+<span class="sd">        :param float factor: the zoom factor</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">scrollBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">factor</span> <span class="o">*</span> <span class="n">scrollBar</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">+</span> <span class="p">((</span><span class="n">factor</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">scrollBar</span><span class="o">.</span><span class="n">pageStep</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">)))</span></div>
+        
+    
+    <span class="c1">## Pre-analysis methods ##</span>
+    
+<div class="viewcode-block" id="MainWindow.displayImgGrey"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.displayImgGrey">[docs]</a>    <span class="k">def</span> <span class="nf">displayImgGrey</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays the grey Images before an analysis, given by the module :mod:`Management`.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span> <span class="c1"># Get the current image from Management.</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">[</span><span class="n">current</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Displays the current image. </span>
+        <span class="n">qimg</span> <span class="o">=</span> <span class="n">ImageQt</span><span class="o">.</span><span class="n">ImageQt</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="n">qimg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numberImg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">isdisplayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="p">)</span> 
+        <span class="k">if</span> <span class="n">isdisplayed</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="c1"># If the image does not display, it goes back to the previous image displayed.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyImgNotDisplayed</span> 
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">[</span><span class="n">current</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> </div>
+    
+<div class="viewcode-block" id="MainWindow.nextImg"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.nextImg">[docs]</a>    <span class="k">def</span> <span class="nf">nextImg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows the user to go to the next non-analyzed image.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">next_img</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">displayImgGrey</span><span class="p">()</span></div>
+        
+<div class="viewcode-block" id="MainWindow.previousImg"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.previousImg">[docs]</a>    <span class="k">def</span> <span class="nf">previousImg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows the user to go to the previous non-analyzed image.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">previous_img</span><span class="p">()</span>      
+        <span class="bp">self</span><span class="o">.</span><span class="n">displayImgGrey</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MainWindow.pushOkImg"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.pushOkImg">[docs]</a>    <span class="k">def</span> <span class="nf">pushOkImg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows the user to go to the non-analyzed image of their choice.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">inputNumber</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numberImg</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">inputNumber</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;You selected `</span><span class="si">{0}</span><span class="s2">`.&quot;</span> 
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;Please select a number, `</span><span class="si">{0}</span><span class="s2">` isn&#39;t valid.&quot;</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inputNumber</span><span class="p">))</span>
+        
+        <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">go_to_img</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">inputNumber</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">displayImgGrey</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="s2">&quot;The number typed is not a valid number.&quot;</span><span class="p">)</span></div>
+         
+    
+<div class="viewcode-block" id="MainWindow.play"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.play">[docs]</a>    <span class="k">def</span> <span class="nf">play</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows the user to start initializing the parameters for the analysis.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apexS</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># We set apexS to true as a condition </span>
+        <span class="n">selectApex</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Apex Selection&#39;</span><span class="p">,</span> <span class="s2">&quot;You can select an apex on this image, would you like to continue?&quot;</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">selectApex</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">:</span> <span class="c1"># The click is always detected, as soon as apexS is == True, the coordinates of click are saved.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">apexS</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="nf">checkApex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">isApex</span><span class="p">,</span> <span class="n">realCoord</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">check_apex</span><span class="p">(</span><span class="n">Mushroom</span><span class="o">.</span><span class="n">Coordinates</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">isApex</span><span class="p">:</span>
+            <span class="n">selectApex</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Apex Selection&#39;</span><span class="p">,</span> <span class="s2">&quot;You have selected an apex on this image. Do you want to keep this apex for the analysis?&quot;</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">selectApex</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">select_apex</span><span class="p">(</span><span class="n">realCoord</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">PopUp</span><span class="p">()</span>	
+                <span class="bp">self</span><span class="o">.</span><span class="n">apexS</span><span class="o">=</span> <span class="kc">False</span> <span class="c1"># Once the apex is selected we put back apexS to false to not save the coordinates anymore. </span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">apexS</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Apex Selection&#39;</span><span class="p">,</span> <span class="s2">&quot;This is not an apex. Please select an apex to run an analysis.&quot;</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Retry</span><span class="p">)</span>          
+    
+    <span class="k">def</span> <span class="nf">PopUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">endImg</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">QInputDialog</span><span class="o">.</span><span class="n">getInt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Last Image Selection&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;Enter the last image for the analysis:&#39;</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">currentImg</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">greyPics</span><span class="p">))</span> <span class="c1"># We put the length of the images as the default number and the maximum, current image +1 as the minimum. </span>
+
+        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>     
+            
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">endImg</span><span class="p">):</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;You selected `</span><span class="si">{}</span><span class="s2">`.&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">select_endImg</span><span class="p">(</span><span class="n">endImg</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">confirm</span><span class="p">()</span>
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;Please select a number, `</span><span class="si">{}</span><span class="s2">` isn&#39;t valid.&quot;</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">endImg</span><span class="p">),</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Retry</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWindow.confirm"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.confirm">[docs]</a>    <span class="k">def</span> <span class="nf">confirm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows the user to confirm the parameters selected and to start the analysis.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">confirm</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                                       <span class="s2">&quot;You have selected the apex of coordinates </span><span class="si">{}</span><span class="s2"> from the image </span><span class="si">{}</span><span class="s2"> and have selected as an end image: </span><span class="si">{}</span><span class="s2">. Click yes to run the analysis.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">startApex</span><span class="p">,</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">startImg</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">endImg</span><span class="o">+</span><span class="mi">1</span> <span class="p">),</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>          
+        <span class="k">if</span> <span class="n">confirm</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">apexS</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">statusMessage</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Analysing...&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+            <span class="n">message</span><span class="p">,</span> <span class="n">boolean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>             
+            <span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfStep</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot; / </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">steps</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="n">boolean</span> <span class="o">==</span> <span class="kc">True</span> <span class="p">:</span>  
+                <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="c1"># The progress bar is at the max when the analysis is done.         </span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">statusMessage</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">displayImgRed</span><span class="p">()</span>
+            <span class="k">else</span> <span class="p">:</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="n">message</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">apexS</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progressBar</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  </div>
+        
+    <span class="c1">## Post-analysis methods ##</span>
+    
+<div class="viewcode-block" id="MainWindow.displayImgRed"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.displayImgRed">[docs]</a>    <span class="k">def</span> <span class="nf">displayImgRed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays the analyzed images (colorized) after the analysis, given by the :mod:`Management` module.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">currentStep</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">finalImg</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">stepImg</span>
+            <span class="n">qimg</span> <span class="o">=</span> <span class="n">ImageQt</span><span class="o">.</span><span class="n">ImageQt</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="n">qimg</span><span class="p">)</span>    
+            <span class="bp">self</span><span class="o">.</span><span class="n">numberStep</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">currentStep</span><span class="p">))</span>
+            <span class="n">isdisplayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageLabel</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixmap</span><span class="p">)</span>        
+            <span class="k">if</span> <span class="n">isdisplayed</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">colorImgNotDisplayed</span> 
+                <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">stepImg</span></div>
+            
+<div class="viewcode-block" id="MainWindow.pushOkStep"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.pushOkStep">[docs]</a>    <span class="k">def</span> <span class="nf">pushOkStep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows the user to go to the analyzed image of their choice.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">inputNumber</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numberStep</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">inputNumber</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;You selected `</span><span class="si">{0}</span><span class="s2">`&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;Please select a number, `</span><span class="si">{0}</span><span class="s2">` isn&#39;t valid.&quot;</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inputNumber</span><span class="p">))</span>
+        
+        <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">go_to_step</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">inputNumber</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">displayImgRed</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="s2">&quot;The number typed is not a valid number.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MainWindow.nextAnalysisImg"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.nextAnalysisImg">[docs]</a>    <span class="k">def</span> <span class="nf">nextAnalysisImg</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows the user to go to the next analyzed image.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">next_step</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">displayImgRed</span><span class="p">()</span></div>
+        
+<div class="viewcode-block" id="MainWindow.previousAnalysisImg"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.previousAnalysisImg">[docs]</a>    <span class="k">def</span> <span class="nf">previousAnalysisImg</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows the user to go to the previous analyzed image.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">previous_step</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">displayImgRed</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="MainWindow.save"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Asks :mod:`Management` to save the current :class:`Project`.</span>
+<span class="sd">        </span>
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">save_project</span><span class="p">()</span>
+        <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span> <span class="c1"># Shows the message sent by management from the save.</span></div>
+        
+<div class="viewcode-block" id="MainWindow.export"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Asks :mod:`Management` to export the data obtained during the analysis of the current :class:`Project`.</span>
+<span class="sd">        </span>
+<span class="sd">        :raise AttributeError: if no :class:`Project` attribute has been created</span>
+
+<span class="sd">        .. codeauthor:: Bouthayna Haltout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">analysis</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">dialog</span> <span class="o">=</span> <span class="n">QDialog</span><span class="p">()</span>
+                <span class="n">dialog</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">Form</span><span class="p">()</span>
+                <span class="n">dialog</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="n">dialog</span><span class="p">)</span>
+                <span class="n">dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+                <span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># Shows the Notes.py as a QDialog.</span>
+                <span class="n">notes</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">textEdit</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span> <span class="c1"># Retreives the text as notes.</span>
+    
+                <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> <span class="c1"># If data.txt is checked, we initialize textOk to true.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">textOk</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">textOk</span> <span class="o">=</span> <span class="kc">False</span>   
+                    
+                <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">sImg</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> <span class="c1"># If steps images is checked, we initialize imgstepsOk to true.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">imgstepsOk</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">imgstepsOk</span> <span class="o">=</span> <span class="kc">False</span> 
+                    
+                <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">fImg</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> <span class="c1"># If final image is checked, we initialize imgOk to true.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">imgOk</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">imgOk</span> <span class="o">=</span> <span class="kc">False</span>      
+                
+                <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">export_project</span><span class="p">(</span><span class="n">notes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">textOk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">imgOk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">imgstepsOk</span><span class="p">)</span> <span class="c1"># Sends the information to Management.</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+            
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Please run an analysis before trying to export it.&quot;</span>
+                <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Please create or open a project and run an analysis before trying to export it.&quot;</span>
+            <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="MainWindow.closeEvent"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.MainWindow.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dialog for closing the app, with options on how to proceed - Cancel, Close.</span>
+<span class="sd">        </span>
+<span class="sd">        :param event: the detected event</span>
+<span class="sd">        :type event: PyQt5.QtGui.QCloseEvent </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">close</span> <span class="o">=</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Quit&quot;</span><span class="p">,</span> <span class="s2">&quot;Do you want to quit? Any unsaved work will be lost.&quot;</span><span class="p">,</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Cancel</span> <span class="o">|</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Close</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">close</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Close</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># We clear everything before quitting. </span>
+            <span class="n">app</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>           
+        <span class="k">if</span> <span class="n">close</span> <span class="o">==</span> <span class="n">QMessageBox</span><span class="o">.</span><span class="n">Cancel</span><span class="p">:</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="TaskBar"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.TaskBar">[docs]</a><span class="k">class</span> <span class="nc">TaskBar</span><span class="p">(</span><span class="n">QThread</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Thread class allowing the pyqt signal between the progress bar and the end of the analysis. </span>
+<span class="sd">   </span>
+<span class="sd">    .. codeauthor:: Bouthayna Haltout   </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">taskFinished</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">()</span><span class="c1"># We declare taskFinished as a Signal.</span>
+    
+<div class="viewcode-block" id="TaskBar.run"><a class="viewcode-back" href="../3_TrackHypha_TechDoc.html#MainWindow.TaskBar.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Emits a signal as soon as it&#39;s called.</span>
+<span class="sd">        &quot;&quot;&quot;</span>      
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">taskFinished</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span> </div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">MainWindow</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">()</span>
+    <span class="n">MainWindow</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Salomé Attar, Bouthayna Haltout, Sébastien Maillos, Laura Xénard
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+***********************
+Documentation technique
+***********************
+
+Module Mushroom
+***************
+
+.. automodule:: Mushroom
+	:members:
+
+
+Package UI
+************
+
+:Synopsis:
+	This package contains the three modules used to create and display the user interface:
+	
+		* MainWindow
+		* Ui
+		* Notes
+
+Module MainWindow
+=================
+
+.. automodule:: MainWindow
+	:members:
+	:show-inheritance:
+
+Module Ui
+=========	
+	
+.. automodule:: Ui
+	:members:
+	:show-inheritance:
+
+Module Notes
+============
+	
+.. automodule:: Notes
+	:members:
+	:show-inheritance:
+
+	
+Module Management
+*****************
+
+.. automodule:: Management
+	:members:
+
+	
+Module InOut
+************
+
+.. automodule:: InOut
+	:members:
+	
+	
+Module AI
+************
+
+.. automodule:: AI
+	:members:
+
+	
+
+
+	
+
+
+
+	
